@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>來生，出家簿</title>
+<style>
+:root{--ink:#2b2a27;--paper:#f6f1e6;--gray:#8a7f72;--bamboo:#6f8f7a;--gold:#d9b66b;--red:#b5442f;--line:#d8cfbd;--fs:18px}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font:var(--fs)/1.8 "Noto Serif TC","PMingLiU",serif;padding-bottom:84px}
+header{text-align:center;padding:18px 12px 6px}
+header h1{margin:0;font-size:1.3em;letter-spacing:.15em}
+header p{margin:4px 0 0;color:var(--gray);font-size:.85em}
+.seal{display:inline-block;width:42px;height:42px;line-height:42px;border:3px solid var(--red);color:var(--red);font-weight:700;border-radius:4px;margin-bottom:6px}
+main{max-width:640px;margin:0 auto;padding:8px 14px}
+section{display:none}section.on{display:block}
+nav{position:fixed;bottom:0;left:0;right:0;display:flex;background:#fffaf0;border-top:1px solid var(--line)}
+nav button{flex:1;padding:12px 0;border:0;background:none;font:inherit;font-size:.85em;color:var(--gray)}
+nav button.on{color:var(--ink);font-weight:700;border-top:3px solid var(--red);margin-top:-1px}
+.card{background:#fffaf0;border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin:12px 0}
+.card h3{margin:0 0 6px;font-size:1.05em}
+.note{color:var(--gray);font-size:.8em}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+.btn{border:1px solid var(--gray);background:#fff;border-radius:8px;padding:8px 14px;font:inherit;font-size:.9em}
+.btn.on{background:var(--bamboo);border-color:var(--bamboo);color:#fff}
+.field{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;margin:10px 0}
+.tian{aspect-ratio:3/2;border:1px solid var(--gray);border-radius:3px;font-size:.62em;line-height:1.2;display:flex;align-items:center;justify-content:center;text-align:center;padding:2px;background:#f3eee4}
+.tian.s1{background:#cfe0d3}.tian.s2{background:#f1e2b8}
+.grp{font-size:.8em;color:var(--gray);margin-top:10px}
+.q{padding:8px 0;border-top:1px dashed var(--line)}
+.q:first-of-type{border-top:0}
+footer{text-align:center;color:var(--gray);font-size:.72em;padding:14px}
+.pend{color:var(--gray);font-style:italic}
+</style>
+</head>
+<body>
+<header><div class="seal">淨</div><h1>來生，出家簿</h1><p>今生善用其心，來世同佛出家</p></header>
+<main>
+
+<section id="t0" class="on">
+<div class="card"><h3>福田・十六塊田相</h3>
+<p class="note">這件袈裟是來生的我要披的。每一塊田相是一個出家前要準備的條件，由你自己填：已具足、正在準備、交給因緣。沒有不及格。</p>
+<div class="field" id="field"></div>
+<p class="note">十六塊的分組是本工具的整理，不是經典分類。內容依聖嚴法師《律制生活》〈求度出家的條件〉所列十六輕遮。</p></div>
+<div class="card"><h3>標語</h3><p>今生善用其心，來世同佛出家。<br><span class="note">「善用其心」出自《華嚴經・淨行品》；六十華嚴作「如佛出家」。</span></p></div>
+</section>
+
+<section id="t1">
+<div class="card"><h3>淨行</h3>
+<p class="pend">經文建置中。六十華嚴（T09n0278 卷6〈淨行品第七〉）與八十華嚴（T10n0279 卷14〈淨行品第十一〉）將並排呈現，逐字核對 CBETA 後才放入，核對完成前不放任何經文。</p></div>
+</section>
+
+<section id="t2">
+<div class="card"><h3>平日用餐，是否收攝身心</h3>
+<p class="note">出家人在齋堂依行儀用飯稱「過堂」，並心存五觀。你每天用餐也可以這樣問自己：</p>
+<p><b>這一餐，我有收攝身心嗎？</b></p>
+<div class="row" id="meal"></div>
+<details><summary>食存五觀</summary>
+<p>一、計功多少，量彼來處<br>二、忖己德行，全缺應供<br>三、防心離過，貪等為宗<br>四、正事良藥，為療形枯<br>五、為成道業，方受此食</p>
+<p class="note">出處：《毗尼日用切要香乳記》。不計分數、不扣分。</p></details></div>
+
+<div class="card"><h3>十善業道</h3>
+<p class="note">睡前只勾你守住的。名稱取自《十善業道經》。</p>
+<div id="shan"></div></div>
+
+<div class="card"><h3>禪堂</h3>
+<p class="note">靜坐計時（預設靜音）。</p>
+<div class="row" id="sit"></div><p id="clock" class="note"></p></div>
+
+<div class="card"><h3>八關齋戒</h3>
+<p>一日一夜學出家。</p>
+<p class="note">八關齋戒須從法師或如法道場受持，本工具只提醒與記錄。六齋日提醒資料待核對後加入。</p></div>
+</section>
+
+<section id="t3">
+<div class="card"><h3>讀誦</h3><p class="pend">待淨行品經文核對完成後建置。</p></div>
+</section>
+
+<section id="t4">
+<div class="card"><h3>十三難・十六遮</h3>
+<p class="note">以下是受戒時戒師會問的項目（問遮難），是律制審查，不是對你的評斷。依聖嚴法師《律制生活》〈求度出家的條件〉。</p>
+<p>十三難：壞內外道、破他梵行、賊心入道、黃門、二根、畜牲變人形、非人變人形、犯邊罪、弒父、弒母、弒阿羅漢、破和合僧、出佛身血。</p>
+<p class="note">警語漫畫與原文問答格式建置中。</p></div>
+<div class="card"><h3>設定</h3>
+<div class="row"><button class="btn" onclick="fs(2)">字放大</button><button class="btn" onclick="fs(-2)">字縮小</button></div>
+<p class="note">資料只存在這台裝置。備份與還原功能建置中。<br>署名：Tally.C</p></div>
+</section>
+
+</main>
+<footer>V-0.001（2026-11-18）・AI 協助撰寫，請自行判斷；不主張著作權，歡迎廣傳。</footer>
+<nav id="nav"></nav>
+
+<script>
+const $=id=>document.getElementById(id);
+const S=(k,d)=>{try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}};
+const P=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}};
+// tabs
+const tabs=['福田','淨行','功課','讀誦','出家簿'];
+tabs.forEach((n,i)=>{const b=document.createElement('button');b.textContent=n;b.onclick=()=>{tabs.forEach((_,j)=>{$('t'+j).classList.toggle('on',i===j);$('nav').children[j].classList.toggle('on',i===j)})};$('nav').appendChild(b)});
+$('nav').children[0].classList.add('on');
+// 十六關（聖嚴法師：十六輕遮；分組為工具整理）
+const G=[['自在無牽',['不是奴婢','不是盜賊','沒有負債']],['家緣',['父母同意','不任軍公職']],['身心',['沒有癩病','沒有白癩','沒有癰疸','沒有癲狂']],['年歲',['年滿二十']],['資具',['有衣缽','非借來的衣缽']],['儀軌',['能自稱名','能稱和尚名','能乞戒','不穿俗服外道服飾']]];
+const st=S('gate',{}),lab=['','已具足','準備中'];
+let html='';G.forEach(g=>{});
+function drawField(){const f=$('field');f.innerHTML='';G.forEach(g=>g[1].forEach(n=>{const d=document.createElement('div');const v=st[n]||0;d.className='tian s'+(v==1?1:v==2?2:0);d.textContent=n;d.title=['交給因緣','已具足','正在準備'][v];d.onclick=()=>{st[n]=((st[n]||0)+1)%3;P('gate',st);drawField()};f.appendChild(d)}))}
+drawField();
+// 平日用餐
+const mk=(id,arr,fn)=>arr.forEach(t=>{const b=document.createElement('button');b.className='btn';b.textContent=t;b.onclick=()=>fn(b,t);$(id).appendChild(b)});
+mk('meal',['有','一半','沒有'],(b)=>{[...$('meal').children].forEach(x=>x.classList.remove('on'));b.classList.add('on')});
+// 十善
+['不殺生','不偷盜','不邪淫','不妄語','不兩舌','不惡口','不綺語','不貪欲','不瞋恚','不邪見'].forEach((t,i)=>{const l=document.createElement('label');l.className='q';l.style.display='block';l.innerHTML='<input type="checkbox"> '+(i<3?'身　':i<7?'口　':'意　')+t;$('shan').appendChild(l)});
+// 禪堂
+let tm;mk('sit',['5分','10分','15分','25分'],(b,t)=>{clearInterval(tm);let s=parseInt(t)*60;tm=setInterval(()=>{s--;$('clock').textContent='剩 '+Math.floor(s/60)+':'+String(s%60).padStart(2,'0');if(s<=0){clearInterval(tm);$('clock').textContent='時間到'}},1000)});
+let size=S('fs',18);document.documentElement.style.setProperty('--fs',size+'px');
+function fs(d){size=Math.min(28,Math.max(14,size+d));P('fs',size);document.documentElement.style.setProperty('--fs',size+'px')}
+</script>
+</body>
+</html>
