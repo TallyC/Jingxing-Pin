@@ -67,6 +67,7 @@ footer{text-align:center;color:var(--faint);font-size:.68em;letter-spacing:.15em
 <div class="art"><img src="assets/hero.jpg" alt="水彩：一件攤開的袈裟，遠處山路上有出家人的背影" width="900" height="1200">
 <div class="vert">今生善用其心<br>來世同佛出家<small>善用其心　出自《華嚴經・淨行品》</small></div></div>
 <div class="field" id="field" style="margin:6px 0 16px"></div>
+<div class="card" id="now" style="text-align:center"></div>
 <p class="note" style="text-align:center">一件正在縫成的袈裟。十六塊田相，是出家前的十六件事。<br>點一下，依序：已具足、正在準備、交給因緣。沒有不及格。</p>
 <p class="note" style="text-align:center;margin-top:22px">分組與排列是本工具的整理，不是經典分類。<br>內容依聖嚴法師《律制生活》〈求度出家的條件〉所列十六輕遮。<br>六十華嚴作「如佛出家」。</p>
 </section>
@@ -102,7 +103,13 @@ footer{text-align:center;color:var(--faint);font-size:.68em;letter-spacing:.15em
 </section>
 
 <section id="t3">
-<div class="card"><h3>讀誦</h3><p class="pend">待淨行品經文核對完成後建置。</p></div>
+<div class="card"><h3>讀誦</h3>
+<div class="row" id="rmode"></div>
+<div class="row" id="rver"></div>
+<div class="row"><select id="rsec" style="font:inherit;font-size:.85em;border:0;border-bottom:1px solid rgba(36,34,30,.3);background:none;color:var(--ink);padding:4px 0"></select></div>
+<div id="rcard" style="min-height:230px;text-align:center;padding:26px 6px 10px"></div>
+<div class="row" style="justify-content:center;gap:34px"><button class="btn" id="rprev">上一願</button><button class="btn" id="rnext">下一願</button></div>
+<p class="note" id="rstat" style="text-align:center"></p></div>
 </section>
 
 <section id="t4">
@@ -112,9 +119,11 @@ footer{text-align:center;color:var(--faint);font-size:.68em;letter-spacing:.15em
 <p class="note">用自己的話寫一段發願。只存在這台裝置。</p>
 <textarea id="vow" rows="5" style="width:100%;border:0;border-bottom:1px solid rgba(36,34,30,.25);background:rgba(255,255,255,.35);font:inherit;font-size:.9em;padding:10px;color:var(--ink);resize:vertical"></textarea></div>
 <div class="card"><h3>十三難・十六遮</h3>
-<p class="note">以下是受戒時戒師會問的項目（問遮難），是律制審查，不是對你的評斷。依聖嚴法師《律制生活》〈求度出家的條件〉。</p>
-<p>十三難：壞內外道、破他梵行、賊心入道、黃門、二根、畜牲變人形、非人變人形、犯邊罪、弒父、弒母、弒阿羅漢、破和合僧、出佛身血。</p>
-<p class="note">警語漫畫與原文問答格式建置中。</p></div>
+<p class="note">受戒時，戒師會逐項詢問，稱「問遮難」。這是律制的審查項目，不是對你的評斷；實際情況請請示戒師。下面的白話說明依律學通說改寫，細部定義仍在對照《戒律學綱要》核對。</p>
+<p class="note" id="znsrc"></p>
+<details><summary>十三難</summary><div id="n13"></div></details>
+<details><summary>十六遮</summary><div id="z16"></div></details>
+<details><summary>年歲與其他說明</summary><p class="note">聖嚴法師引述：重難任占其一，今生不得出家；輕遮的原因消除之後，即可出家。另引律典說明年歲限制：七歲以下不度；六十歲以後不得受大戒；七十歲以上不度出家（康健能做事者可）。又引「端正者出家，清淨者圓具」。中國戒場實務上多半只問、不擋。</p></details></div>
 <div class="card"><h3>備份與還原</h3>
 <p class="note">進度只存在這台裝置。換手機或清除瀏覽器前，請先備份。</p>
 <div class="big"><button onclick="bk()">備份到檔案</button><label>從檔案還原<input type="file" accept=".json" id="rf" hidden></label></div>
@@ -129,7 +138,7 @@ footer{text-align:center;color:var(--faint);font-size:.68em;letter-spacing:.15em
 </section>
 
 </main>
-<footer>V-0.005（2026-11-18）・AI 協助撰寫，請自行判斷；不主張著作權，歡迎廣傳。</footer>
+<footer>V-0.006（2026-11-18）・AI 協助撰寫，請自行判斷；不主張著作權，歡迎廣傳。</footer>
 <nav id="nav"></nav>
 
 <script>
@@ -182,7 +191,38 @@ function drawJx(){[...$('ver').children].forEach(b=>b.classList.toggle('on',b.te
   vs.forEach(v=>{const c=document.createElement('div');const h=document.createElement('div');h.className='note';h.textContent=V[v];c.appendChild(h);
    ((jd[v]||{verses:[]}).verses).filter(x=>x.section==sec).forEach(x=>{const p=document.createElement('p');p.style.margin='6px 0';p.innerHTML='<span class="note">'+x.n+'</span> '+x.text;c.appendChild(p)});g.appendChild(c)});
   d.appendChild(g);root.appendChild(d)})}
-Promise.all([60,80].map(v=>fetch(files[v]).then(r=>r.json()).then(j=>{jd[v]=j}).catch(()=>{}))).then(()=>{if(!jd[60]&&!jd[80])$('jx').innerHTML='<p class="pend">經文載入失敗，請連線後重開。</p>';else drawJx()});
+
+// 讀誦
+let rm=S('rm','讀'),rv=S('rv',60),ri=S('ri',0);const RD=S('read',{60:[],80:[]});
+const verses=()=>((jd[rv]||{}).verses||[]);
+mk('rmode',['讀','誦'],(b,t)=>{rm=t;P('rm',t);drawR()});
+mk('rver',['六十華嚴','八十華嚴'],(b,t)=>{rv=t=='六十華嚴'?60:80;P('rv',rv);ri=0;fillSec();drawR()});
+function fillSec(){const sel=$('rsec');sel.innerHTML='';['在家','捨家','剃度','皈戒','禪堂','威儀','行腳','乞食','說法禮佛','寢息'].forEach(n=>{const o=document.createElement('option');o.textContent=n;sel.appendChild(o)})}
+fillSec();
+$('rsec').onchange=e=>{const i=verses().findIndex(v=>v.section==e.target.value);if(i>=0){ri=i;drawR()}};
+$('rprev').onclick=()=>{ri=Math.max(0,ri-1);drawR()};$('rnext').onclick=()=>{ri=Math.min(verses().length-1,ri+1);drawR()};
+function drawR(){const vs=verses();if(!vs.length){$('rcard').innerHTML='<span class="pend">經文載入中…</span>';return}ri=Math.min(ri,vs.length-1);P('ri',ri);const v=vs[ri];
+ [...$('rmode').children].forEach(b=>b.classList.toggle('on',b.textContent==rm));[...$('rver').children].forEach(b=>b.classList.toggle('on',b.textContent==V[rv]));$('rsec').value=v.section;
+ const done=RD[rv].includes(v.n);const c=$('rcard');
+ const cond=v.text.slice(0,v.text.indexOf('，當願眾生')>0?v.text.indexOf('，當願眾生'):v.text.indexOf('當願眾生')>0?v.text.indexOf('當願眾生'):6);
+ if(rm=='讀'){c.innerHTML='<p style="font-size:1.25em;line-height:2.3;letter-spacing:.14em;margin:0 0 14px">'+v.text.replace(/，/g,'，<br>').replace(/：/g,'：<br>')+'</p><p class="note">'+v.section+'・第 '+v.n+' 願</p><button class="btn'+(done?' on':'')+'" id="mark">'+(done?'已讀過':'讀過了')+'</button>';
+  $('mark').onclick=()=>{if(!RD[rv].includes(v.n))RD[rv].push(v.n);P('read',RD);drawR()}}
+ else{c.innerHTML='<p style="font-size:1.25em;line-height:2.3;letter-spacing:.14em;margin:0 0 14px">'+cond+'……</p><p class="note">試著說出下一句，再點「看經文」。</p><button class="btn" id="show">看經文</button>';
+  $('show').onclick=()=>{c.innerHTML='<p style="font-size:1.25em;line-height:2.3;letter-spacing:.14em;margin:0 0 14px">'+v.text.replace(/，/g,'，<br>').replace(/：/g,'：<br>')+'</p><p class="note">'+v.section+'・第 '+v.n+' 願</p>'}}
+ $('rstat').textContent=V[rv]+'　'+(ri+1)+' / '+vs.length+'　已讀過 '+RD[rv].length+' 願'}
+// 此刻一願
+function nowVow(){const h=new Date().getHours();let slot,kw;
+ if(h>=5&&h<9){slot='清晨';kw=['晨朝覺悟','睡眠始寤']}else if((h>=11&&h<13)||(h>=17&&h<19)||(h>=6&&h<9)){slot='用餐';kw=['若飯食時','若得食時','若得美食','飯食已訖']}else if(h>=21||h<5){slot='夜晚';kw=['昏夜寢息','以時寢息','若洗足時']}else{slot='今日';kw=[]}
+ const pick=v=>{const vs=(jd[v]||{}).verses||[];let x=null;kw.some(k=>(x=vs.find(y=>y.cond==k)));return x||(vs.length?vs[(new Date().getDate()+new Date().getMonth()*31)%vs.length]:null)};
+ const a=pick(60),b=pick(80);if(!a&&!b)return;
+ $('now').innerHTML='<h3 style="letter-spacing:.3em;font-weight:400;margin:0 0 10px">'+(kw.length?'此刻・'+slot:'今日一願')+'</h3>'+(a?'<p style="margin:6px 0;line-height:2.1">'+a.text.replace(/。$/,'')+'</p><p class="note" style="margin:0">六十華嚴・'+a.section+'</p>':'')+(b?'<p style="margin:14px 0 6px;line-height:2.1;color:var(--mid)">'+b.text.replace(/。$/,'')+'</p><p class="note" style="margin:0">八十華嚴・'+b.section+'</p>':'')}
+
+// 十三難・十六遮
+fetch('data/zhenan.json').then(r=>r.json()).then(z=>{$('znsrc').textContent='依據：'+z.source;
+ $('n13').innerHTML=z.nan13.map(x=>'<div class="q"><b>'+x.name+'</b> <span class="note">'+(x.kind=='行為'?'行為類':'身分生理類')+'</span><br><span class="note">'+x.mean+'</span></div>').join('');
+ const gs=[...new Set(z.zhe16.map(x=>x.group))];
+ $('z16').innerHTML=gs.map(g=>'<p class="note" style="margin:14px 0 2px">'+g+'</p>'+z.zhe16.filter(x=>x.group==g).map(x=>'<div class="q"><b>'+x.name+'</b><br><span class="note">'+x.mean+'</span></div>').join('')).join('')+'<p class="note">十六遮的分組是本工具的整理；聖嚴法師原文把病人併為一條、俗服等併為一條，此處依細項拆開。</p>'}).catch(()=>{});
+Promise.all([60,80].map(v=>fetch(files[v]).then(r=>r.json()).then(j=>{jd[v]=j}).catch(()=>{}))).then(()=>{if(!jd[60]&&!jd[80])$('jx').innerHTML='<p class="pend">經文載入失敗，請連線後重開。</p>';else{drawJx();drawR();nowVow()}});
 let size=S('fs',18);document.documentElement.style.setProperty('--fs',size+'px');
 function fs(d){size=Math.min(28,Math.max(14,size+d));P('fs',size);document.documentElement.style.setProperty('--fs',size+'px')}
 </script>
