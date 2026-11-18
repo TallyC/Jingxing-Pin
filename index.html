@@ -239,6 +239,7 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;background:var
 <textarea id="vow" rows="5" style="width:100%;border:0;border-bottom:1px solid rgba(36,34,30,.25);background:rgba(255,255,255,.35);font:inherit;font-size:.9em;padding:10px;color:var(--ink);resize:vertical"></textarea></div>
 <div class="card"><h3>十三難・十六遮</h3>
 <p class="note">受戒時，戒師會逐項詢問，稱「問遮難」。這是律制的審查項目，不是對你的評斷；實際情況請請示戒師。下面的白話說明依律學通說改寫，僅供認識，細節請依戒師開示。</p>
+<div style="border:1px solid rgba(201,72,47,.45);background:rgba(201,72,47,.06);padding:10px 14px;margin:12px 0;border-radius:4px;font-size:.88em;line-height:1.9"><b style="font-weight:400;letter-spacing:.2em;color:#a53a25">警語</b><br>本節內容涉及身體與過往的敏感事項。它是古代律制的審查項目，不是對任何人的評價或資格判定，請勿用來衡量自己或他人。你若有疑慮，請私下請示戒師或法鼓山的法師。這裡的勾選與內容不會上傳，只存在你這台裝置。</div>
 <p class="note" id="znsrc"></p>
 <details><summary>十三難</summary><p class="note">這是古代律制對特定行為與生理狀態的規定；今日戒場如何處理，依戒師，不代表對任何人的評價。</p><div id="n13"></div></details>
 <details><summary>十六遮</summary><div id="z16"></div></details>
@@ -260,7 +261,7 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;background:var
 </section>
 
 </main>
-<footer>V-0.016（2026-11-19）・AI 協助撰寫，請自行判斷；不主張著作權，歡迎廣傳。</footer>
+<footer>V-0.017（2026-11-19）・AI 協助撰寫，請自行判斷；不主張著作權，歡迎廣傳。</footer>
 <div id="fab" hidden><button id="fsec" hidden>本篇開頭</button><button id="ftop">↑ 頁首</button></div>
 <nav id="nav"></nav>
 
@@ -315,7 +316,7 @@ function drawHist(){const ks=Object.keys(LOG).filter(k=>{const d=fix(LOG[k]);ret
 sumup();window.READY=true;
 const vw=$('vow');vw.value=S('vow','');vw.oninput=()=>P('vow',vw.value);
 // 備份與還原（合併進度）
-function bk(){const o={app:'jingxing-pin',ver:'V-0.016',gate:st,log:LOG,vow:vw.value,read:RD};const u=URL.createObjectURL(new Blob([JSON.stringify(o)],{type:'application/json'}));const a=document.createElement('a');a.href=u;a.download='來生出家簿-備份-'+today()+'.json';document.body.appendChild(a);a.click();a.remove();$('bkmsg').textContent='已備份，請到下載資料夾確認。若沒有反應，請改用 Chrome 或 Safari 開啟本網址。'}
+function bk(){const o={app:'jingxing-pin',ver:'V-0.017',gate:st,log:LOG,vow:vw.value,read:RD};const u=URL.createObjectURL(new Blob([JSON.stringify(o)],{type:'application/json'}));const a=document.createElement('a');a.href=u;a.download='來生出家簿-備份-'+today()+'.json';document.body.appendChild(a);a.click();a.remove();$('bkmsg').textContent='已備份，請到下載資料夾確認。若沒有反應，請改用 Chrome 或 Safari 開啟本網址。'}
 $('rf').onchange=e=>{const f=e.target.files[0];if(!f)return;f.text().then(t=>{try{const o=JSON.parse(t);if(o.app!=='jingxing-pin')throw 0;
  const rk=v=>v==1?3:v==2?2:0;Object.keys(o.gate||{}).forEach(k=>{if(rk(o.gate[k])>rk(st[k]||0))st[k]=o.gate[k]});P('gate',st);drawField();
  Object.keys(o.log||{}).forEach(k=>{const a=fix(LOG[k]=LOG[k]||{}),b=fix(o.log[k]);Object.keys(b.meal).forEach(m=>{if(!a.meal[m])a.meal[m]=b.meal[m]});a.shan=[...new Set([...a.shan,...b.shan])];a.bg=[...new Set([...a.bg,...b.bg])];a.dy=[...new Set([...a.dy,...b.dy])];a.sit=Math.max(a.sit,b.sit);a.ok=Math.max(a.ok,b.ok);a.mo=Math.max(a.mo,b.mo);a.hx=Math.max(a.hx,b.hx);a.jing=[...new Set([...a.jing,...b.jing])];if(!a.intent)a.intent=b.intent;if(!a.rvw)a.rvw=b.rvw});P('log',LOG);
