@@ -53,6 +53,10 @@ footer{text-align:center;color:var(--faint);font-size:.68em;letter-spacing:.15em
 .big{display:flex;gap:12px;flex-wrap:wrap;margin:10px 0}
 .big button,.big label{flex:1;min-width:140px;text-align:center;padding:16px 10px;border:1px solid rgba(36,34,30,.3);background:rgba(255,255,255,.4);font:inherit;letter-spacing:.3em;color:var(--ink);cursor:pointer}
 .mrow{display:flex;align-items:center;gap:18px;padding:4px 0}.mrow span{width:2.2em;color:var(--mid)}
+.art{position:relative;margin:0 -18px}
+.art img{display:block;width:100%;height:auto;-webkit-mask-image:linear-gradient(transparent,#000 14%,#000 78%,transparent);mask-image:linear-gradient(transparent,#000 14%,#000 78%,transparent)}
+.art .vert{position:absolute;top:5%;right:9%}
+.art .vert small{display:none}
 </style>
 </head>
 <body>
@@ -60,10 +64,9 @@ footer{text-align:center;color:var(--faint);font-size:.68em;letter-spacing:.15em
 <main>
 
 <section id="t0" class="on">
-<div class="hero">
-<div class="vert">今生善用其心<br>來世同佛出家<small>善用其心　出自《華嚴經・淨行品》</small></div>
-<div class="field" id="field"></div>
-</div>
+<div class="art"><img src="assets/hero.jpg" alt="水彩：一件攤開的袈裟，遠處山路上有出家人的背影" width="900" height="1200">
+<div class="vert">今生善用其心<br>來世同佛出家<small>善用其心　出自《華嚴經・淨行品》</small></div></div>
+<div class="field" id="field" style="margin:6px 0 16px"></div>
 <p class="note" style="text-align:center">一件正在縫成的袈裟。十六塊田相，是出家前的十六件事。<br>點一下，依序：已具足、正在準備、交給因緣。沒有不及格。</p>
 <p class="note" style="text-align:center;margin-top:22px">分組與排列是本工具的整理，不是經典分類。<br>內容依聖嚴法師《律制生活》〈求度出家的條件〉所列十六輕遮。<br>六十華嚴作「如佛出家」。</p>
 </section>
@@ -126,7 +129,7 @@ footer{text-align:center;color:var(--faint);font-size:.68em;letter-spacing:.15em
 </section>
 
 </main>
-<footer>V-0.004（2026-11-18）・AI 協助撰寫，請自行判斷；不主張著作權，歡迎廣傳。</footer>
+<footer>V-0.005（2026-11-18）・AI 協助撰寫，請自行判斷；不主張著作權，歡迎廣傳。</footer>
 <nav id="nav"></nav>
 
 <script>
