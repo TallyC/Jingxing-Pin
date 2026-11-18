@@ -46,8 +46,11 @@ footer{text-align:center;color:var(--gray);font-size:.72em;padding:14px}
 </section>
 
 <section id="t1">
-<div class="card"><h3>淨行</h3>
-<p class="pend">經文建置中。六十華嚴（T09n0278 卷6〈淨行品第七〉）與八十華嚴（T10n0279 卷14〈淨行品第十一〉）將並排呈現，逐字核對 CBETA 後才放入，核對完成前不放任何經文。</p></div>
+<div class="card"><h3>淨行品</h3>
+<p class="note">《大方廣佛華嚴經・淨行品》。六十華嚴（T09n0278 卷6〈淨行品第七〉）共 <b>140</b> 願，八十華嚴（T10n0279 卷14〈淨行品第十一〉）共 <b>141</b> 願；聖嚴法師所講為 141 願。經文逐字取自 CBETA 大正藏底本，並經兩次逐字比對。</p>
+<div class="row" id="ver"></div>
+<p class="note">十段的分法是本工具為方便閱讀所做，不是經文原有的分品；行腳段兩版偈數不同（六十 57、八十 58），因此並排時不強行逐條對齊。</p></div>
+<div id="jx"></div>
 </section>
 
 <section id="t2">
@@ -111,6 +114,20 @@ mk('meal',['有','一半','沒有'],(b)=>{[...$('meal').children].forEach(x=>x.c
 ['不殺生','不偷盜','不邪淫','不妄語','不兩舌','不惡口','不綺語','不貪欲','不瞋恚','不邪見'].forEach((t,i)=>{const l=document.createElement('label');l.className='q';l.style.display='block';l.innerHTML='<input type="checkbox"> '+(i<3?'身　':i<7?'口　':'意　')+t;$('shan').appendChild(l)});
 // 禪堂
 let tm;mk('sit',['5分','10分','15分','25分'],(b,t)=>{clearInterval(tm);let s=parseInt(t)*60;tm=setInterval(()=>{s--;$('clock').textContent='剩 '+Math.floor(s/60)+':'+String(s%60).padStart(2,'0');if(s<=0){clearInterval(tm);$('clock').textContent='時間到'}},1000)});
+
+// 淨行品
+const V={60:'六十華嚴',80:'八十華嚴',0:'並排'};let jd={};let vm=S('ver',0);
+const files={60:'data/t0278_jingxing.json',80:'data/t0279_jingxing.json'};
+mk('ver',['六十華嚴','八十華嚴','並排'],(b,t)=>{vm=t=='六十華嚴'?60:t=='八十華嚴'?80:0;P('ver',vm);drawJx()});
+function drawJx(){[...$('ver').children].forEach(b=>b.classList.toggle('on',b.textContent==V[vm]));const root=$('jx');root.innerHTML='';
+ const secs=['在家','捨家','剃度','皈戒','禪堂','威儀','行腳','乞食','說法禮佛','寢息'];
+ const vs=vm?[vm]:[60,80];
+ secs.forEach(sec=>{const d=document.createElement('details');d.className='card';const sm=document.createElement('summary');sm.textContent=sec;d.appendChild(sm);
+  const g=document.createElement('div');g.style.cssText='display:grid;gap:10px;grid-template-columns:repeat('+vs.length+',1fr)';
+  vs.forEach(v=>{const c=document.createElement('div');const h=document.createElement('div');h.className='note';h.textContent=V[v];c.appendChild(h);
+   ((jd[v]||{verses:[]}).verses).filter(x=>x.section==sec).forEach(x=>{const p=document.createElement('p');p.style.margin='6px 0';p.innerHTML='<span class="note">'+x.n+'</span> '+x.text;c.appendChild(p)});g.appendChild(c)});
+  d.appendChild(g);root.appendChild(d)})}
+Promise.all([60,80].map(v=>fetch(files[v]).then(r=>r.json()).then(j=>{jd[v]=j}).catch(()=>{}))).then(()=>{if(!jd[60]&&!jd[80])$('jx').innerHTML='<p class="pend">經文載入失敗，請連線後重開。</p>';else drawJx()});
 let size=S('fs',18);document.documentElement.style.setProperty('--fs',size+'px');
 function fs(d){size=Math.min(28,Math.max(14,size+d));P('fs',size);document.documentElement.style.setProperty('--fs',size+'px')}
 </script>
