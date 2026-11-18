@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>來生，出家簿</title>
 <style>
-:root{--ink:#24221e;--mid:#6d665b;--faint:#7d7568;--paper:#efe9dc;--red:#a8402c;--moss:#7f9684;--gold:#d8b46a;--fs:18px}
+:root{--ink:#24221e;--mid:#6d665b;--faint:#6a6256;--paper:#efe9dc;--red:#a8402c;--moss:#7f9684;--gold:#d8b46a;--fs:18px}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html{background:var(--paper)}
 body{margin:0;color:var(--ink);font:300 var(--fs)/2 "Noto Serif TC","Source Han Serif TC","PMingLiU",serif;letter-spacing:.06em;padding-bottom:96px;
@@ -42,7 +42,7 @@ background:linear-gradient(160deg,rgba(255,255,255,.55),rgba(255,255,255,.12));b
 .tian.s1{background:radial-gradient(circle at 40% 35%,rgba(127,150,132,.55),rgba(127,150,132,.18));color:var(--ink)}
 .tian.s2{background:radial-gradient(circle at 40% 35%,rgba(216,180,106,.6),rgba(216,180,106,.2));color:var(--ink)}
 .q{display:block;padding:6px 0}
-input[type=checkbox]{accent-color:var(--moss);width:1.1em;height:1.1em;vertical-align:-.15em;margin-right:.5em}
+input[type=checkbox]{-webkit-appearance:none;appearance:none;width:20px;height:20px;border:1px solid rgba(36,34,30,.45);border-radius:50%;vertical-align:-.3em;margin-right:.6em;background:transparent;flex:none}input[type=checkbox]:checked{background:radial-gradient(circle,var(--red) 38%,transparent 44%);border-color:var(--red)}
 details{border-top:1px solid rgba(36,34,30,.14);padding:14px 0}
 details.card{padding:16px 0;margin:0}
 summary{cursor:pointer;list-style:none;letter-spacing:.35em}
@@ -64,39 +64,60 @@ footer{text-align:center;color:var(--mid);font-size:.78em;letter-spacing:.15em;p
 
 body::after{content:'';position:fixed;inset:0;pointer-events:none;background:var(--tint,transparent);z-index:1;transition:background 2s}
 #tmark{position:absolute;left:18px;bottom:14px;font-size:.75em;letter-spacing:.35em;color:var(--mid)}
-.field{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px;margin:16px 0 0;padding:0;position:relative}
-.field::before{display:none}
-.tian{height:8.4em;min-width:0;font-size:.82em;border:0;border-radius:3px 7px 4px 6px;background:linear-gradient(155deg,rgba(255,253,246,.75),rgba(239,230,210,.55));box-shadow:0 1px 3px rgba(60,45,20,.12),inset 0 0 0 1px rgba(36,34,30,.06);padding:0;transition:background .6s;display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative;cursor:pointer;writing-mode:horizontal-tb;word-break:normal}
-.tian .tx{writing-mode:vertical-rl;-webkit-writing-mode:vertical-rl;line-height:1.35;letter-spacing:.08em;max-height:92%;text-align:center;color:var(--ink)}
-.tian:nth-child(odd){transform:rotate(-.5deg)}.tian:nth-child(even){transform:rotate(.4deg)}
-.tian::after{content:"";position:absolute;inset:5px;border:1px dashed rgba(168,64,44,.28);border-radius:2px;pointer-events:none}
-.tian.s1{background:linear-gradient(155deg,rgba(150,172,154,.62),rgba(127,150,132,.4))}.tian.s2{background:linear-gradient(155deg,rgba(228,196,128,.7),rgba(216,180,106,.42))}
-.tian.sel{box-shadow:0 0 0 2px var(--red),0 2px 6px rgba(60,45,20,.18)}
+.field{display:block!important;margin:10px 0 0;padding:0;border:0;background:none}
+.tg{display:flex;gap:10px;padding:10px 0;border-bottom:1px solid rgba(36,34,30,.1)}
+.field::before{display:none!important}
+.gn{width:5.6em;white-space:nowrap;flex:none;font-size:.78em;color:var(--mid);letter-spacing:.2em;padding-top:.7em}
+.tis{flex:1;display:flex;flex-wrap:wrap;gap:0 14px}
+.ti{border:0;background:none;font:inherit;font-size:.95em;color:var(--ink);padding:6px 0;min-height:42px;letter-spacing:.06em;border-bottom:1px solid transparent;text-align:left}
+.ti::before{content:"○";color:var(--faint);margin-right:.35em}
+.ti.s1::before{content:"●";color:#5f7d66}.ti.s2::before{content:"◐";color:#b8892f}
+.ti.sel{border-bottom-color:var(--red)}
+.tian{display:none}
 .tian small{opacity:.8}
 .legend{display:flex;gap:16px;justify-content:center;font-size:.78em;color:var(--mid);margin:10px 0 0;flex-wrap:wrap}
 .legend i{display:inline-block;width:.9em;height:.9em;margin-right:.4em;vertical-align:-.1em;border:1px solid rgba(36,34,30,.3)}
 .tdet{min-height:4px}.tdet .tt{font-size:1.05em;letter-spacing:.3em;margin:14px 0 4px}
 .seg{display:flex;gap:0;margin:8px 0}.seg button{flex:1;min-height:44px;border:1px solid rgba(36,34,30,.3);margin-left:-1px;background:rgba(255,255,255,.35);font:inherit;font-size:.85em;color:var(--mid);letter-spacing:.15em}
-.seg button.on{background:rgba(36,34,30,.88);color:var(--paper)}
+.seg button.on{background:rgba(255,252,244,.9);color:var(--red);border-color:var(--red);position:relative;z-index:1}
 #fab{position:fixed;right:12px;bottom:76px;display:flex;flex-direction:column;gap:8px;z-index:5}
 #fab button{min-height:44px;min-width:44px;padding:0 12px;border:1px solid rgba(36,34,30,.3);border-radius:22px;background:rgba(239,233,220,.92);font:inherit;font-size:.72em;color:var(--ink);letter-spacing:.1em}
 #fab[hidden],#fab button[hidden]{display:none}
 .vs{margin:0 0 1.2em}.vs .vn{display:block;font-size:.55em;color:var(--faint);letter-spacing:.2em}
 .rbar{position:sticky;bottom:62px;display:grid;grid-template-columns:1fr 1.3fr 1fr;gap:8px;padding:16px 0 6px;background:linear-gradient(transparent,var(--paper) 28%)}
 .rbar button{min-height:52px;border:1px solid rgba(36,34,30,.3);background:rgba(255,252,244,.8);font:inherit;font-size:.85em;letter-spacing:.2em;color:var(--ink)}
-.rbar button.main{background:rgba(36,34,30,.88);color:var(--paper)}
+.rbar button.main{background:rgba(255,252,244,.8);color:var(--red);border-color:var(--red)}
 .sg{margin:6px 0}.sg>span{display:inline-block;width:3.6em;font-size:.8em;color:var(--mid)}
 .sg .btn{padding:10px 8px}
 .hist{display:grid;grid-template-columns:5.2em 1fr;gap:2px 10px;font-size:.85em;padding:6px 0;border-bottom:1px solid rgba(36,34,30,.1)}
 .slot{display:flex;gap:10px;align-items:flex-start;padding:10px 0;border-bottom:1px solid rgba(36,34,30,.1)}
 .slot.now{background:linear-gradient(90deg,rgba(216,180,106,.25),transparent)}
-.slot .tm{width:5.6em;flex:none;font-size:.78em;color:var(--mid);line-height:1.9}
+.slot .tm{white-space:nowrap;width:5.6em;flex:none;font-size:.78em;color:var(--mid);line-height:1.9}
 .slot .tx{flex:1;font-size:.9em;line-height:1.8}
 .slot input{flex:none;margin-top:.5em}
+
+#intro{position:fixed;inset:0;z-index:50;background:var(--paper);display:none;flex-direction:column;overflow:hidden}
+#intro.on{display:flex}
+#intro .sl{position:absolute;inset:0;opacity:0;pointer-events:none;transition:opacity 1.2s}
+#intro .sl.on{opacity:1}
+#intro .pic{height:62vh;background-size:cover;background-position:center;-webkit-mask-image:linear-gradient(#000 70%,transparent);mask-image:linear-gradient(#000 70%,transparent);transform:scale(1.04);transition:transform 9s linear}
+#intro .sl.on .pic{transform:scale(1.12)}
+#intro .tx{position:absolute;left:0;right:0;top:58vh;padding:0 30px;text-align:center}
+#intro .tx p{margin:.5em 0;font-size:1.05em;line-height:2.1;letter-spacing:.25em;opacity:0;transform:translateY(8px)}
+#intro .sl.on .tx p{animation:ln 1.4s ease forwards}
+#intro .tx p:nth-child(2){animation-delay:1.6s!important}#intro .tx p:nth-child(3){animation-delay:3.2s!important}
+#intro .tx p.big{font-size:1.35em;letter-spacing:.35em}
+@keyframes ln{to{opacity:1;transform:none}}
+#intro .skip{position:absolute;top:10px;right:10px;z-index:3;border:0;background:none;font:inherit;font-size:.8em;color:var(--mid);letter-spacing:.2em;min-height:44px;padding:0 14px}
+#intro .dots{position:absolute;bottom:26px;left:0;right:0;display:flex;justify-content:center;gap:10px;z-index:3}
+#intro .dots i{width:6px;height:6px;border-radius:50%;background:rgba(36,34,30,.2)}#intro .dots i.on{background:var(--red)}
+#intro .go{position:absolute;bottom:60px;left:50%;transform:translateX(-50%);z-index:3;border:1px solid rgba(36,34,30,.4);background:rgba(255,252,244,.8);font:inherit;letter-spacing:.4em;padding:14px 34px;color:var(--ink);display:none}
+#intro .go.on{display:block}
 </style>
 <link rel="icon" href="assets/logo-192.png">
 </head>
 <body>
+<div id="intro"><button class="skip" id="isk">略過</button><div id="isl"></div><div class="dots" id="idots"></div><button class="go" id="igo">開始</button></div>
 <header><img class="logo" src="assets/logo-192.png" alt="淨字印" width="112" height="112"><h1>來生，出家簿</h1><div class="fsz"><button onclick="fs(-2)" aria-label="字縮小">小字</button><button onclick="fs(2)" aria-label="字放大">大字</button></div></header>
 <main>
 
@@ -104,16 +125,17 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;background:var
 <div class="art"><img src="assets/hero.jpg" alt="水彩：一件攤開的袈裟，遠處山路上有出家人的背影" width="900" height="1200">
 <div id="tmark"></div>
 <div class="vert">今生善用其心<br>來世同佛出家<small>善用其心　出自《華嚴經・淨行品》</small></div></div>
+<p class="note" style="text-align:center;margin:18px 0 0">第一次來：先到〈功課〉試一天；〈福田〉可晚點看；成果在〈出家簿〉。</p>
 <div class="card" id="now" style="text-align:center"></div>
 <div class="card"><h3>十六田相</h3>
-<p class="note">袈裟是一塊塊「田相」縫成的。這十六塊，是出家前要先具備的十六件事。點一塊，看白話說明，再標記自己的狀況。</p>
+<p class="note">袈裟由一塊塊「田相」縫成。律中「問遮難」列有十六項輕遮；這裡借田相的意象，讓你認識出家前律制會關心哪些事，並標記自己與它的距離。這不是資格清單，也不是進度條。</p>
 <div class="field" id="field"></div>
-<div class="legend"><span><i style="background:rgba(127,150,132,.5)"></i>已具足</span><span><i style="background:rgba(216,180,106,.55)"></i>正在準備</span><span><i></i>交給因緣</span></div>
+<div class="legend"><span>○ 交給因緣</span><span>◐ 正在了解</span><span>● 已知道</span></div>
 <div class="tdet" id="tdet"></div>
 <details><summary>設計說明</summary>
-<p class="note">為什麼是方格？袈裟又稱「福田衣」，以條、塊割截縫成，形似田畦（依佛教辭典通說）；這裡借此當作十六關的象徵，不是經典對十六關的分類。</p>
-<p class="note">三種顏色只是自己看的提醒，不是評分，也不會有人看到。內容依聖嚴法師《律制生活》〈求度出家的條件〉所列十六輕遮；分組與排列是本工具的整理。六十華嚴作「如佛出家」。</p>
-<p class="note">首頁的色調與「此刻一願」會隨一天的時間改變：清晨、用餐、夜晚各取淨行品中對應的一願，其餘時段每天換一願。</p></details></div>
+<p class="note">為什麼用「田相」？袈裟又稱「福田衣」，以條、塊割截縫成，形似田畦（依佛教辭典通說）；這裡只借它當意象，不是經典對十六項的分類。</p>
+<p class="note">三種記號只是自己看的提醒，不是評分，也不會有人看到。十六項依聖嚴法師《律制生活》〈求度出家的條件〉所列十六輕遮；分組與排列是本工具的整理。其中部分項目屬受戒時才問的儀軌。願，不是保證；來世同佛出家，是願。</p>
+<p class="note">首頁的底色與「此刻一願」會隨一天的時間改變：清晨、用餐、夜晚各取淨行品中對應的一願，其餘時段每天換一願。</p></details></div>
 </section>
 
 <section id="t1">
@@ -128,7 +150,7 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;background:var
 
 <section id="t2">
 <div class="card"><h3>今日功課</h3>
-<p>淨行品的修法：日常的每一個動作，都起一個願。</p>
+<p>淨行品的精神：日常的每一個動作，都起一個願。這是本工具的用法。</p>
 <p class="note">聖嚴法師說，隨時隨地舉心動念是為眾生得安樂，不為自己求利益（〈發大悲願心〉）。下面把一天分成四段：晨起發願、日中隨境起願、禪坐、夜裡回顧迴向。不必全做，做得到哪段就從哪段開始。</p>
 <div id="prog" class="legend" style="justify-content:space-around;font-size:.9em"></div></div>
 
@@ -139,7 +161,7 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;background:var
 <input id="intent" placeholder="今天我想在哪件事上守住這個願？（選填）" style="width:100%;border:0;border-bottom:1px solid rgba(36,34,30,.25);background:rgba(255,255,255,.35);font:inherit;font-size:.85em;padding:10px;color:var(--ink)"></div>
 
 <div class="card"><h3>日中・隨境起願</h3>
-<p class="note">《淨行品》的修法，是遇到什麼境，就起什麼願。今天有五個境，做到的時候默念一遍，想起了就勾。（取六十華嚴）</p>
+<p class="note">《淨行品》的修法，是遇到什麼境，就起什麼願。今天有五個境，做到的時候默念一遍，想起了就勾。（取六十華嚴，每願附偈號）</p>
 <div id="jing"></div>
 <details><summary>吃飯這一境：食存五觀</summary>
 <p>一、計功多少，量彼來處<br>二、忖己德行，全缺應供<br>三、防心離過，貪等為宗<br>四、正事良藥，為療形枯<br>五、為成道業，方受此食</p>
@@ -153,16 +175,17 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;background:var
 <p class="note">打坐的基本要領，是先放鬆身心，才能放下身心（聖嚴法師〈禪坐有什麼功能？〉）。坐姿與方法請依法鼓山的禪修課程學習；這裡只提供計時與提示。</p>
 <div class="row" id="sit"></div>
 <p id="clock" class="note"></p>
-<p class="note">計時時請保持畫面開啟；開始與結束都會輕響，完整坐完會記進行儀記錄。</p></div>
+<p class="note">計時只是輔助，不是目標。計時時請保持畫面開啟；開始與結束都會輕響，完整坐完會記進行儀記錄。</p></div>
 
 <div class="card"><h3>夜・回顧與迴向</h3>
 <p class="note">身口意三業，睡前只勾你守住的（《十善業道經》）。</p>
 <div id="shan"></div>
-<p style="margin-top:18px">今天有哪裡不妥？當下立願改過。</p>
+<p style="margin-top:18px">今天有哪裡不妥？記一句，當下立願改過，明天重來。</p>
 <textarea id="rvw" rows="3" placeholder="只存在這台裝置" style="width:100%;border:0;border-bottom:1px solid rgba(36,34,30,.25);background:rgba(255,255,255,.35);font:inherit;font-size:.85em;padding:10px;color:var(--ink);resize:vertical"></textarea>
 <p class="note">每天針對一日言行反省，有不妥就當下立願改過，並修四正勤：已生惡令斷滅，未生惡令不生，未生善令生起，已生善令增長（香光莊嚴〈日常生活也能「大悲懺」〉）。</p>
 <p style="margin-top:14px;line-height:2.1">眾生無邊誓願度<br>煩惱無盡誓願斷<br>法門無量誓願學<br>佛道無上誓願成</p>
-<label class="q"><input type="checkbox" id="hxck">今天的功德，迴向給一切眾生</label></div>
+<label class="q"><input type="checkbox" id="hxck">今天的功德，迴向給一切眾生</label>
+<p class="note">迴向文與課誦，請依法鼓山課誦本。</p></div>
 <div class="card"><button class="btn" onclick="goTab(5)">到出家簿看行儀記錄 ›</button></div>
 </section>
 
@@ -175,7 +198,7 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;background:var
 <p class="note">時間軸是本工具的參考安排，不是經典規定，請以所受道場的安排為準。目前所在的時段會淡淡標出。</p>
 <div id="dyt"></div></div>
 <div class="card"><h3>八戒一齋</h3>
-<p class="note">依《薩婆多論》（見南天寺《八關齋戒》）：八戒加一齋。</p>
+<p class="note">依《薩婆多論》（見南天寺《八關齋戒》）：前八項為戒，第九項為齋，合稱「八戒一齋」。</p>
 <div id="bg"></div>
 <details><summary>六齋日與出處</summary>
 <p class="note">六齋日：農曆每月初八、十四、十五、廿三、廿九、三十（小月無三十，以廿八、廿九計）。八關齋戒也可在其他日子受持（法增比丘《八關齋戒的受持與功德》）。</p>
@@ -205,7 +228,7 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;background:var
 <div class="card"><h3>十三難・十六遮</h3>
 <p class="note">受戒時，戒師會逐項詢問，稱「問遮難」。這是律制的審查項目，不是對你的評斷；實際情況請請示戒師。下面的白話說明依律學通說改寫，僅供認識，細節請依戒師開示。</p>
 <p class="note" id="znsrc"></p>
-<details><summary>十三難</summary><div id="n13"></div></details>
+<details><summary>十三難</summary><p class="note">這是古代律制對特定行為與生理狀態的規定；今日戒場如何處理，依戒師，不代表對任何人的評價。</p><div id="n13"></div></details>
 <details><summary>十六遮</summary><div id="z16"></div></details>
 <details><summary>年歲與其他說明</summary><p class="note">聖嚴法師引述：重難任占其一，今生不得出家；輕遮的原因消除之後，即可出家。另引律典說明年歲限制：七歲以下不度；六十歲以後不得受大戒；七十歲以上不度出家（康健能做事者可）。又引「端正者出家，清淨者圓具」。中國戒場實務上多半只問、不擋。</p></details></div>
 <div class="card"><h3>備份與還原</h3>
@@ -213,7 +236,7 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;background:var
 <div class="big"><button onclick="bk()">備份到檔案</button><label>從檔案還原<input type="file" accept=".json" id="rf" hidden></label></div>
 <p class="note" id="bkmsg"></p></div>
 <div class="card"><h3>設定</h3>
-<div class="row"><button class="btn" onclick="fs(2)">字放大</button><button class="btn" onclick="fs(-2)">字縮小</button></div></div>
+<div class="row"><button class="btn" onclick="fs(2)">字放大</button><button class="btn" onclick="fs(-2)">字縮小</button><button class="btn" onclick="introOpen()">重看序章</button></div></div>
 <div class="card"><h3>說明</h3>
 <p class="note">《大方廣佛華嚴經・淨行品》經文取自 CBETA 大正藏底本（六十華嚴 T09n0278 卷6，八十華嚴 T10n0279 卷14）。出家條件與十三難、十六遮依聖嚴法師《律制生活》〈求度出家的條件〉。食存五觀出自《毗尼日用切要香乳記》。十善業道名稱取自《十善業道經》。</p>
 <p class="note">本工具是修行提醒，不是出家資格的判定；出家與受戒請親近法師、如法道場。AI 協助撰寫，請自行判斷；不主張著作權，歡迎廣傳。</p>
@@ -222,7 +245,7 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;background:var
 </section>
 
 </main>
-<footer>V-0.012（2026-11-18）・AI 協助撰寫，請自行判斷；不主張著作權，歡迎廣傳。</footer>
+<footer>V-0.013（2026-11-18）・AI 協助撰寫，請自行判斷；不主張著作權，歡迎廣傳。</footer>
 <div id="fab" hidden><button id="fsec" hidden>本篇開頭</button><button id="ftop">↑ 頁首</button></div>
 <nav id="nav"></nav>
 
@@ -241,9 +264,9 @@ const st=S('gate',{}),lab=['','已具足','準備中'];
 let html='';G.forEach(g=>{});
 const MEAN={'不是奴婢':'奴婢','不是盜賊':'盜賊','沒有負債':'負債','父母同意':'父母不聽','不任軍公職':'軍公現職','沒有癩病':'癩','沒有白癩':'白癩','沒有癰疸':'癰疸','沒有癲狂':'癲狂','年滿二十':'年未滿二十','有衣缽':'無衣缽','非借來的衣缽':'借人衣缽','能自稱名':'不自稱名','能稱和尚名':'不稱和尚名','能乞戒':'不乞戒','不穿俗服外道服飾':'穿俗服外道服裝飾'};
 let ZH={},selT=null;
-function drawField(){const f=$('field');f.innerHTML='';G.forEach(g=>g[1].forEach(n=>{const d=document.createElement('div');const v=st[n]||0;d.className='tian s'+(v==1?1:v==2?2:0)+(selT==n?' sel':'');d.innerHTML='<span class="tx">'+n+'</span><small style="position:absolute;bottom:4px;left:0;right:0;text-align:center">'+['','具足','準備'][v]+'</small>';d.onclick=()=>{selT=n;drawField()};f.appendChild(d)}));
- const t=$('tdet');if(!selT){t.innerHTML='<p class="note" style="text-align:center">點上面任一塊。</p>';}else{const g=(G.find(x=>x[1].includes(selT))||[])[0],z=ZH[MEAN[selT]];t.innerHTML='<div class="tt">'+selT+'</div><p class="note" style="margin:0">'+g+'・律中的相反情形是「'+(MEAN[selT]||'')+'」'+(z?'：'+z:'')+'</p><div class="seg" id="tseg"></div>';
-  [['已具足',1],['正在準備',2],['交給因緣',0]].forEach(([l,v])=>{const b=document.createElement('button');b.textContent=l;b.className=(st[selT]||0)==v?'on':'';b.onclick=()=>{st[selT]=v;P('gate',st);drawField()};$('tseg').appendChild(b)})}
+function drawField(){const f=$('field');f.innerHTML='';G.forEach(g=>{const r=document.createElement('div');r.className='tg';r.innerHTML='<span class="gn">'+g[0]+'</span>';const w=document.createElement('span');w.className='tis';g[1].forEach(n=>{const v=st[n]||0;const d=document.createElement('button');d.className='ti s'+(v==1?1:v==2?2:0)+(selT==n?' sel':'');d.textContent=n;d.onclick=()=>{selT=n;drawField()};w.appendChild(d)});r.appendChild(w);f.appendChild(r)});
+ const t=$('tdet');if(!selT){t.innerHTML='<p class="note" style="text-align:center">點任一項，看白話說明。</p>';}else{const g=(G.find(x=>x[1].includes(selT))||[])[0],z=ZH[MEAN[selT]];t.innerHTML='<div class="tt">'+selT+'</div><p class="note" style="margin:0">'+g+'。律中問遮難時，相反的情形是「'+(MEAN[selT]||'')+'」'+(z?'：'+z:'')+'</p><div class="seg" id="tseg"></div>';
+  [['已知道',1],['正在了解',2],['交給因緣',0]].forEach(([l,v])=>{const b=document.createElement('button');b.textContent=l;b.className=(st[selT]||0)==v?'on':'';b.onclick=()=>{st[selT]=v;P('gate',st);drawField()};$('tseg').appendChild(b)})}
  if(window.READY)sumup()}
 drawField();
 const mk=(id,arr,fn)=>arr.forEach(t=>{const b=document.createElement('button');b.className='btn';b.textContent=t;b.onclick=()=>fn(b,t);$(id).appendChild(b)});
@@ -258,7 +281,7 @@ const sv=()=>{P('log',LOG);sumup()};
 function sumup(){const d=day(),m=Object.keys(d.meal).length;
  drawHist();$('today').innerHTML='今天（'+today()+'）：用餐自省 '+m+' 餐，守住十善 '+d.shan.length+' 條。<br>不計分，只是記下來。';
  const g=Object.values(st).filter(v=>v==1).length,pr=Object.values(st).filter(v=>v==2).length,ds=Object.keys(LOG).filter(k=>{const d=fix(LOG[k]);return Object.keys(d.meal).length||d.shan.length||d.sit||d.bg.length||d.ok||d.mo||d.jing.length||d.hx}).length;
- $('selfimg').src='assets/self-'+(g<6?'A':g<12?'B':'C')+'.jpg';$('life').innerHTML='來生的我，隨十六關慢慢清楚。<br>十六關：已具足 '+g+'，正在準備 '+pr+'，其餘交給因緣。<br>已記錄 '+ds+' 天。'}
+ $('selfimg').src='assets/self-'+(g<6?'A':g<12?'B':'C')+'.jpg';$('life').innerHTML='來生的我，隨十六關慢慢清楚。<br>十六項：已知道 '+g+'，正在了解 '+pr+'，其餘交給因緣。<br>已記錄 '+ds+' 天。'}
 
 // ---- 今日功課 ----
 const JPOOL=[[34,35,36,37,45,46,42],[49,51,52,53,54,55,8,73],[67,70,80,81,82,84,99,101],[111,115,119,121],[138,125,126,127]];
@@ -267,7 +290,7 @@ function drawKg(){const d=day();const v60=(jd[60]||{}).verses||[];if(!v60.length
  $('intent').value=d.intent;$('intent').oninput=e=>{d.intent=e.target.value;P('log',LOG)};
  $('rvw').value=d.rvw;$('rvw').oninput=e=>{d.rvw=e.target.value;P('log',LOG)};$('hxck').checked=!!d.hx;$('hxck').onchange=e=>{d.hx=e.target.checked?1:0;sv();drawKg()};
  const dn=Math.floor(Date.now()/864e5);const J=$('jing');J.innerHTML='';
- JPOOL.forEach((pool,g)=>{const n=pool[(dn+g*3)%pool.length],v=v60.find(x=>x.n==n);if(!v)return;const l=document.createElement('label');l.className='q';l.style.cssText='padding:12px 0;border-bottom:1px solid rgba(36,34,30,.1)';const c=document.createElement('input');c.type='checkbox';c.checked=d.jing.includes(n);c.onchange=()=>{c.checked?d.jing.push(n):d.jing=d.jing.filter(x=>x!==n);sv();drawKg()};l.appendChild(c);const sp=document.createElement('span');sp.innerHTML='<b>'+['晨起','出門行路','遇見','用餐','夜裡'][g]+'</b>　'+v.text.replace(/。$/,'');l.appendChild(sp);J.appendChild(l)});
+ JPOOL.forEach((pool,g)=>{const n=pool[(dn+g*3)%pool.length],v=v60.find(x=>x.n==n);if(!v)return;const l=document.createElement('label');l.className='q';l.style.cssText='padding:12px 0;border-bottom:1px solid rgba(36,34,30,.1)';const c=document.createElement('input');c.type='checkbox';c.checked=d.jing.includes(n);c.onchange=()=>{c.checked?d.jing.push(n):d.jing=d.jing.filter(x=>x!==n);sv();drawKg()};l.appendChild(c);const sp=document.createElement('span');sp.innerHTML='<b>'+['晨起','出門行路','遇見','用餐','夜裡'][g]+'</b>　'+v.text.replace(/。$/,'')+' <span class="note">（第'+n+'願）</span>';l.appendChild(sp);J.appendChild(l)});
  const fl=[['晨',d.mo],['日',d.jing.length||Object.keys(d.meal).length],['坐',d.sit],['夜',d.shan.length||d.rvw||d.hx]];
  $('prog').innerHTML=fl.map(([t,v])=>'<span><i style="background:'+(v?'rgba(127,150,132,.6)':'transparent')+';border-radius:50%"></i>'+t+'</span>').join('')}
 function drawHist(){const ks=Object.keys(LOG).filter(k=>{const d=fix(LOG[k]);return Object.keys(d.meal).length||d.shan.length||d.sit||d.bg.length||d.ok||d.mo||d.jing.length||d.hx}).sort().reverse();
@@ -350,23 +373,39 @@ function timeSlot(){const h=new Date().getHours();return h>=5&&h<8?['晨朝覺�
 fetch('data/zhenan.json').then(r=>r.json()).then(z=>{z.zhe16.forEach(x=>{ZH[x.name]=x.mean});drawField();$('znsrc').textContent='依據：'+z.source;
  $('n13').innerHTML=z.nan13.map(x=>'<div class="q"><b>'+x.name+'</b> <span class="note">'+(x.kind=='行為'?'行為類':'身分生理類')+'</span><br><span class="note">'+x.mean+'</span></div>').join('');
  const gs=[...new Set(z.zhe16.map(x=>x.group))];
- $('z16').innerHTML=gs.map(g=>'<p class="note" style="margin:14px 0 2px">'+g+'</p>'+z.zhe16.filter(x=>x.group==g).map(x=>'<div class="q"><b>'+x.name+'</b><br><span class="note">'+x.mean+'</span></div>').join('')).join('')+'<p class="note">十六遮的分組是本工具的整理；聖嚴法師原文把病人併為一條、俗服等併為一條，此處依細項拆開。</p>'}).catch(()=>{});
+ $('z16').innerHTML=gs.map(g=>'<p class="note" style="margin:14px 0 2px">'+g+'</p>'+z.zhe16.filter(x=>x.group==g).map(x=>'<div class="q"><b>'+x.name+'</b><br><span class="note">'+x.mean+'</span></div>').join('')).join('')+'<p class="note">此處十六條是本工具依分組拆列，非律典逐條編號；聖嚴法師原文把病人併為一條、俗服等併為一條，此處依細項拆開。</p>'}).catch(()=>{});
 Promise.all([60,80].map(v=>fetch(files[v]).then(r=>r.json()).then(j=>{jd[v]=j}).catch(()=>{}))).then(()=>{if(!jd[60]&&!jd[80])$('rcard').innerHTML=$('jx').innerHTML='<p class="pend">經文載入失敗。請連線，並用網址（tallyc.github.io/Jingxing-Pin）開啟，不要直接打開下載的檔案。</p>';else{drawJx();drawR();nowVow();drawKg()}});
 let size=S('fs',18);document.documentElement.style.setProperty('--fs',size+'px');
 function fs(d){size=Math.min(28,Math.max(14,size+d));P('fs',size);document.documentElement.style.setProperty('--fs',size+'px')}
 
 // ---- 一日出家 ----
-const DY=[['04:30–06:00','起身，晨朝覺悟。可讀淨行品「晨朝覺悟」一願。',4.5,6],['06:00–07:00','受持八關齋戒（從法師或如法道場；一日一夜自此起算）。',6,7],['07:00–08:00','早齋，午前用餐；食存五觀。',7,8],['08:00–11:00','誦經、禪坐、聽法，或安靜作務。',8,11],['11:00–12:00','午齋，於正午前用畢（過午不食）。',11,12],['12:00–17:00','靜坐、讀誦、經行；不再進食。',12,17],['17:00–21:00','晚課、懺悔、迴向，洗足就寢前整理身心。',17,21],['21:00–次日04:30','寢息：睡低床、板床，不臥高廣大床。次晨戒期圓滿，迴向。',21,28.5]];
+const DY=[['04:30–06:00','起身，晨朝覺悟。可讀淨行品「晨朝覺悟」一願。',4.5,6],['06:00–07:00','受持八關齋戒（從法師或如法道場，時間依道場；一日一夜自受持起算）。',6,7],['07:00–08:00','用餐（午前）；食存五觀。',7,8],['08:00–11:00','誦經、禪坐、聽法，或安靜作務。',8,11],['11:00–12:00','最後一餐須在正午前用畢（過午不食）；一日幾餐依道場。',11,12],['12:00–17:00','靜坐、讀誦、經行；不再進食。',12,17],['17:00–21:00','晚間靜坐、誦經、懺悔、迴向。',17,21],['21:00–次日04:30','寢息：睡矮而簡單的床鋪，不臥高廣大床。次晨戒期圓滿，迴向。',21,28.5]];
 const BG=[['不殺生',''],['不偷盜',''],['不淫','（連夫妻之間也不行）'],['不妄語',''],['不飲酒',''],['不著華鬘、香油塗身',''],['不歌舞觀聽',''],['不坐臥高廣大床',''],['不非時食（齋）','：午後不進食']];
 function drawDy(){const d=day(),h=new Date().getHours()+new Date().getMinutes()/60,hh=h<4.5?h+24:h;
  $('dyon').textContent=d.ok?'● 今天我學出家（再點一次取消）':'〇 今天我學出家';$('dyon').className='btn'+(d.ok?' on':'');
  $('dyt').innerHTML='';DY.forEach((x,i)=>{const r=document.createElement('label');r.className='slot'+(hh>=x[2]&&hh<x[3]?' now':'');r.innerHTML='<span class="tm">'+x[0]+'</span><span class="tx">'+x[1]+'</span>';const c=document.createElement('input');c.type='checkbox';c.checked=d.dy.includes(i);c.onchange=()=>{c.checked?d.dy.push(i):d.dy=d.dy.filter(v=>v!==i);sv()};r.appendChild(c);$('dyt').appendChild(r)});
- $('bg').innerHTML='';BG.forEach((x,i)=>{const l=document.createElement('label');l.className='q';const c=document.createElement('input');c.type='checkbox';c.checked=d.bg.includes(i);c.onchange=()=>{c.checked?d.bg.push(i):d.bg=d.bg.filter(v=>v!==i);sv()};l.appendChild(c);l.append((i+1)+'　'+x[0]+x[1]);$('bg').appendChild(l)})}
+ $('bg').innerHTML='';BG.forEach((x,i)=>{const l=document.createElement('label');l.className='q';const c=document.createElement('input');c.type='checkbox';c.checked=d.bg.includes(i);c.onchange=()=>{c.checked?d.bg.push(i):d.bg=d.bg.filter(v=>v!==i);sv()};l.appendChild(c);l.append((i<8?(i+1):'齋')+'　'+x[0]+x[1]);$('bg').appendChild(l)})}
 $('dyon').onclick=()=>{const d=day();d.ok=d.ok?0:1;sv();drawDy()};
 drawDy();
 // ---- 浮動按鈕 ----
 function updFab(){const y=scrollY;$('fab').hidden=y<500;let sec=null;if($('t1').classList.contains('on'))[...document.querySelectorAll('#jx details[open]')].forEach(d=>{const r=d.getBoundingClientRect();if(r.top<-80&&r.bottom>200)sec=d});$('fsec').hidden=!sec;$('fsec').onclick=()=>sec&&window.scrollTo({top:sec.getBoundingClientRect().top+scrollY-10,behavior:'smooth'})}
 addEventListener('scroll',updFab,{passive:true});$('ftop').onclick=()=>window.scrollTo({top:0,behavior:'smooth'});
+
+// ---- 序章 ----
+const INTRO=[
+ ['hero.jpg',['下輩子，','我想出家。']],
+ ['ch-shejia.jpg',['不是今生逃走，','而是現在先學著，把心用好。']],
+ ['ch-weiyi.jpg',['《華嚴經・淨行品》教的，','是日常的每一個動作，都起一個願。']],
+ ['ch-zaijia.jpg',['晨朝覺悟，當願眾生，','一切智覺，不捨十方。']],
+ ['ch-chantang.jpg',['於是有了這本簿子：','功課裡練習，一日裡學出家，','讀誦裡親近經文。']],
+ ['self-C.jpg',['來生的我，','隨著今生的功課，慢慢清楚。']]];
+let ii=0,it=null;
+function introShow(n){ii=n;[...document.querySelectorAll('#isl .sl')].forEach((e,i)=>e.classList.toggle('on',i===n));[...$('idots').children].forEach((e,i)=>e.classList.toggle('on',i===n));$('igo').classList.toggle('on',n===INTRO.length-1);clearTimeout(it);if(n<INTRO.length-1)it=setTimeout(()=>introShow(n+1),7500)}
+function introClose(){clearTimeout(it);$('intro').classList.remove('on');P('intro',1);window.scrollTo(0,0)}
+function introOpen(){$('intro').classList.add('on');introShow(0)}
+(function(){INTRO.forEach(([img,lines],i)=>{const d=document.createElement('div');d.className='sl';d.innerHTML='<div class="pic" style="background-image:url(assets/'+img+')"></div><div class="tx">'+lines.map((l,j)=>'<p'+(i==0?' class="big"':'')+'>'+l+'</p>').join('')+'</div>';$('isl').appendChild(d);const t=document.createElement('i');$('idots').appendChild(t)});
+ $('intro').addEventListener('click',e=>{if(e.target.closest('button'))return;if(ii<INTRO.length-1)introShow(ii+1)});$('isk').onclick=introClose;$('igo').onclick=introClose;
+ if(!S('intro',0))introOpen()})();
 </script>
 </body>
 </html>
