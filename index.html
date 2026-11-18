@@ -12,7 +12,8 @@ body{margin:0;color:var(--ink);font:300 var(--fs)/2 "Noto Serif TC","Source Han 
 background:radial-gradient(120% 60% at 85% -5%,rgba(216,180,106,.22),transparent 60%),radial-gradient(90% 50% at 0% 105%,rgba(127,150,132,.18),transparent 65%),var(--paper);min-height:100vh}
 header{padding:44px 24px 8px;text-align:center}
 .logo{width:60px;height:60px;display:block;margin:0 auto 18px;-webkit-mask-image:radial-gradient(circle,#000 52%,transparent 72%);mask-image:radial-gradient(circle,#000 52%,transparent 72%)}
-header h1{margin:0;font-weight:300;font-size:1.5em;letter-spacing:.5em;padding-left:.5em}
+header{position:relative}
+header h1{margin:0;font-weight:300;font-size:min(1.5em,26px);letter-spacing:.3em;padding-left:.3em}
 header p{margin:10px 0 0;color:var(--mid);font-size:.78em;letter-spacing:.35em}
 main{max-width:600px;margin:0 auto;padding:12px 18px}
 section{display:none;animation:in .9s ease both}section.on{display:block}
@@ -32,9 +33,12 @@ b{font-weight:400;border-bottom:1px solid var(--red)}
 .vert small{display:block;font-size:.55em;color:var(--mid);letter-spacing:.3em;margin-top:18px}
 .field{flex:1;min-width:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:5px;margin:0;padding:7px;position:relative}
 .field::before{content:"";position:absolute;inset:0;border:1px dashed rgba(36,34,30,.28);pointer-events:none}
-.tian{aspect-ratio:2/3.1;font-size:.55em;line-height:1.3;letter-spacing:.04em;overflow:hidden;word-break:break-all;writing-mode:vertical-rl;display:flex;align-items:center;justify-content:center;text-align:center;padding:4px;color:var(--mid);position:relative;cursor:pointer;
+.tian{aspect-ratio:2/3.1;font-size:.8em;line-height:1.3;letter-spacing:.04em;overflow:hidden;word-break:break-all;writing-mode:vertical-rl;display:flex;align-items:center;justify-content:center;text-align:center;padding:4px;color:var(--mid);position:relative;cursor:pointer;
 background:linear-gradient(160deg,rgba(255,255,255,.55),rgba(255,255,255,.12));border:1px solid rgba(36,34,30,.18);transition:background .8s,color .6s}
 .tian::after{content:"";position:absolute;inset:3px;border:1px dotted rgba(36,34,30,.18);pointer-events:none}
+.fsz{position:absolute;top:8px;right:8px;display:flex;gap:2px}.fsz button{border:0;background:none;color:var(--mid);font:inherit;font-size:13px;padding:10px 8px;min-height:44px}
+.chimg{width:100%;display:block;margin:6px 0 10px;mask-image:radial-gradient(ellipse at center,#000 62%,transparent 100%);-webkit-mask-image:radial-gradient(ellipse at center,#000 62%,transparent 100%)}
+.tian small{writing-mode:horizontal-tb;display:block;font-size:.62em;letter-spacing:0;margin-top:4px;color:var(--ink)}
 .tian.s1{background:radial-gradient(circle at 40% 35%,rgba(127,150,132,.55),rgba(127,150,132,.18));color:var(--ink)}
 .tian.s2{background:radial-gradient(circle at 40% 35%,rgba(216,180,106,.6),rgba(216,180,106,.2));color:var(--ink)}
 .q{display:block;padding:6px 0}
@@ -46,7 +50,7 @@ summary::-webkit-details-marker{display:none}
 summary::before{content:"〇 ";color:var(--red);font-size:.7em}
 details[open]>summary::before{content:"● "}
 nav{position:fixed;bottom:0;left:0;right:0;display:flex;justify-content:center;gap:4px;padding:10px 12px 16px;background:linear-gradient(transparent,var(--paper) 40%)}
-nav button{flex:1;max-width:96px;border:0;background:none;font:inherit;font-size:.85em;letter-spacing:.35em;padding:10px 0 12px;color:var(--faint);position:relative}
+nav button{flex:1;max-width:96px;border:0;background:none;font:inherit;font-size:min(.85em,15px);letter-spacing:.15em;white-space:nowrap;padding:10px 0 12px;color:var(--faint);position:relative}
 nav button.on{color:var(--ink)}
 nav button.on::after{content:"";position:absolute;left:50%;bottom:2px;width:5px;height:5px;margin-left:-2.5px;border-radius:50%;background:var(--red)}
 footer{text-align:center;color:var(--faint);font-size:.68em;letter-spacing:.15em;padding:30px 24px 10px;line-height:1.9}
@@ -58,9 +62,10 @@ footer{text-align:center;color:var(--faint);font-size:.68em;letter-spacing:.15em
 .art .vert{position:absolute;top:5%;right:9%}
 .art .vert small{display:none}
 </style>
+<link rel="icon" href="assets/logo-192.png">
 </head>
 <body>
-<header><img class="logo" src="assets/logo-192.png" alt="淨字印" width="112" height="112"><h1>來生，出家簿</h1></header>
+<header><img class="logo" src="assets/logo-192.png" alt="淨字印" width="112" height="112"><h1>來生，出家簿</h1><div class="fsz"><button onclick="fs(-2)" aria-label="字縮小">小字</button><button onclick="fs(2)" aria-label="字放大">大字</button></div></header>
 <main>
 
 <section id="t0" class="on">
@@ -68,7 +73,7 @@ footer{text-align:center;color:var(--faint);font-size:.68em;letter-spacing:.15em
 <div class="vert">今生善用其心<br>來世同佛出家<small>善用其心　出自《華嚴經・淨行品》</small></div></div>
 <div class="field" id="field" style="margin:6px 0 16px"></div>
 <div class="card" id="now" style="text-align:center"></div>
-<p class="note" style="text-align:center">一件正在縫成的袈裟。十六塊田相，是出家前的十六件事。<br>點一下，依序：已具足、正在準備、交給因緣。沒有不及格。</p>
+<p class="note" style="text-align:center">一件正在縫成的袈裟。十六塊田相，是出家前的十六件事。<br>點一下換狀態：交給因緣（空白）→已具足（綠）→正在準備（金）。這只是自己看的提醒，不是評斷，沒有不及格。</p>
 <p class="note" style="text-align:center;margin-top:22px">分組與排列是本工具的整理，不是經典分類。<br>內容依聖嚴法師《律制生活》〈求度出家的條件〉所列十六輕遮。<br>六十華嚴作「如佛出家」。</p>
 </section>
 
@@ -94,12 +99,12 @@ footer{text-align:center;color:var(--faint);font-size:.68em;letter-spacing:.15em
 <div id="shan"></div></div>
 
 <div class="card"><h3>禪堂</h3>
-<p class="note">靜坐計時（預設靜音）。</p>
+<p class="note">靜坐計時。時間到會輕響三聲並震動（手機若設為靜音則無聲）。計時時請保持畫面開啟。</p>
 <div class="row" id="sit"></div><p id="clock" class="note"></p></div>
 
 <div class="card"><h3>八關齋戒</h3>
 <p>一日一夜學出家。</p>
-<p class="note">八關齋戒須從法師或如法道場受持，本工具只提醒與記錄。六齋日提醒資料待核對後加入。</p></div>
+<p class="note">八關齋戒須從法師或如法道場受持，本工具僅作簡介，不做記錄。</p></div>
 </section>
 
 <section id="t3">
@@ -119,7 +124,7 @@ footer{text-align:center;color:var(--faint);font-size:.68em;letter-spacing:.15em
 <p class="note">用自己的話寫一段發願。只存在這台裝置。</p>
 <textarea id="vow" rows="5" style="width:100%;border:0;border-bottom:1px solid rgba(36,34,30,.25);background:rgba(255,255,255,.35);font:inherit;font-size:.9em;padding:10px;color:var(--ink);resize:vertical"></textarea></div>
 <div class="card"><h3>十三難・十六遮</h3>
-<p class="note">受戒時，戒師會逐項詢問，稱「問遮難」。這是律制的審查項目，不是對你的評斷；實際情況請請示戒師。下面的白話說明依律學通說改寫，細部定義仍在對照《戒律學綱要》核對。</p>
+<p class="note">受戒時，戒師會逐項詢問，稱「問遮難」。這是律制的審查項目，不是對你的評斷；實際情況請請示戒師。下面的白話說明依律學通說改寫，僅供認識，細節請依戒師開示。</p>
 <p class="note" id="znsrc"></p>
 <details><summary>十三難</summary><div id="n13"></div></details>
 <details><summary>十六遮</summary><div id="z16"></div></details>
@@ -133,12 +138,12 @@ footer{text-align:center;color:var(--faint);font-size:.68em;letter-spacing:.15em
 <div class="card"><h3>說明</h3>
 <p class="note">《大方廣佛華嚴經・淨行品》經文取自 CBETA 大正藏底本（六十華嚴 T09n0278 卷6，八十華嚴 T10n0279 卷14）。出家條件與十三難、十六遮依聖嚴法師《律制生活》〈求度出家的條件〉。食存五觀出自《毗尼日用切要香乳記》。十善業道名稱取自《十善業道經》。</p>
 <p class="note">本工具是修行提醒，不是出家資格的判定；出家與受戒請親近法師、如法道場。AI 協助撰寫，請自行判斷；不主張著作權，歡迎廣傳。</p>
-<p class="note">想把這份好意流通出去，可以隨喜：法鼓山大願興學、慈濟、無國界醫生。</p>
+<p class="note">想把這份好意流通出去，歡迎轉給有緣的人；若想隨喜，請依自己的因緣護持你信任的善行。</p>
 <p class="note">署名：Tally.C</p></div>
 </section>
 
 </main>
-<footer>V-0.007（2026-11-18）・AI 協助撰寫，請自行判斷；不主張著作權，歡迎廣傳。</footer>
+<footer>V-0.008（2026-11-18）・AI 協助撰寫，請自行判斷；不主張著作權，歡迎廣傳。</footer>
 <nav id="nav"></nav>
 
 <script>
@@ -153,7 +158,7 @@ $('nav').children[0].classList.add('on');
 const G=[['自在無牽',['不是奴婢','不是盜賊','沒有負債']],['家緣',['父母同意','不任軍公職']],['身心',['沒有癩病','沒有白癩','沒有癰疸','沒有癲狂']],['年歲',['年滿二十']],['資具',['有衣缽','非借來的衣缽']],['儀軌',['能自稱名','能稱和尚名','能乞戒','不穿俗服外道服飾']]];
 const st=S('gate',{}),lab=['','已具足','準備中'];
 let html='';G.forEach(g=>{});
-function drawField(){const f=$('field');f.innerHTML='';G.forEach(g=>g[1].forEach(n=>{const d=document.createElement('div');const v=st[n]||0;d.className='tian s'+(v==1?1:v==2?2:0);d.textContent=n;d.title=['交給因緣','已具足','正在準備'][v];d.onclick=()=>{st[n]=((st[n]||0)+1)%3;P('gate',st);drawField()};f.appendChild(d)}));if(window.READY)sumup()}
+function drawField(){const f=$('field');f.innerHTML='';G.forEach(g=>g[1].forEach(n=>{const d=document.createElement('div');const v=st[n]||0;d.className='tian s'+(v==1?1:v==2?2:0);d.innerHTML=n+'<small>'+['因緣','具足','準備'][v]+'</small>';d.title=['交給因緣','已具足','正在準備'][v];d.onclick=()=>{st[n]=((st[n]||0)+1)%3;P('gate',st);drawField()};f.appendChild(d)}));if(window.READY)sumup()}
 drawField();
 const mk=(id,arr,fn)=>arr.forEach(t=>{const b=document.createElement('button');b.className='btn';b.textContent=t;b.onclick=()=>fn(b,t);$(id).appendChild(b)});
 // 日記錄
@@ -171,22 +176,27 @@ function sumup(){const d=day(),m=Object.keys(d.meal).length;
 sumup();window.READY=true;
 const vw=$('vow');vw.value=S('vow','');vw.oninput=()=>P('vow',vw.value);
 // 備份與還原（合併進度）
-function bk(){const o={app:'jingxing-pin',ver:'V-0.004',gate:st,log:LOG,vow:vw.value};const u=URL.createObjectURL(new Blob([JSON.stringify(o)],{type:'application/json'}));const a=document.createElement('a');a.href=u;a.download='來生出家簿-備份-'+today()+'.json';document.body.appendChild(a);a.click();a.remove();$('bkmsg').textContent='已備份。'}
+function bk(){const o={app:'jingxing-pin',ver:'V-0.008',gate:st,log:LOG,vow:vw.value,read:RD};const u=URL.createObjectURL(new Blob([JSON.stringify(o)],{type:'application/json'}));const a=document.createElement('a');a.href=u;a.download='來生出家簿-備份-'+today()+'.json';document.body.appendChild(a);a.click();a.remove();$('bkmsg').textContent='已備份，請到下載資料夾確認。若沒有反應，請改用 Chrome 或 Safari 開啟本網址。'}
 $('rf').onchange=e=>{const f=e.target.files[0];if(!f)return;f.text().then(t=>{try{const o=JSON.parse(t);if(o.app!=='jingxing-pin')throw 0;
- Object.keys(o.gate||{}).forEach(k=>{st[k]=Math.max(st[k]||0,o.gate[k])});P('gate',st);drawField();
+ const rk=v=>v==1?3:v==2?2:0;Object.keys(o.gate||{}).forEach(k=>{if(rk(o.gate[k])>rk(st[k]||0))st[k]=o.gate[k]});P('gate',st);drawField();
  Object.keys(o.log||{}).forEach(k=>{const a=LOG[k]=LOG[k]||{meal:{},shan:[]},b=o.log[k];Object.assign(a.meal,b.meal||{});a.shan=[...new Set([...(a.shan||[]),...(b.shan||[])])]});P('log',LOG);
- if(o.vow&&!vw.value){vw.value=o.vow;P('vow',o.vow)}sumup();$('bkmsg').textContent='已合併還原，原有進度沒有被覆蓋。'}catch(x){$('bkmsg').textContent='這個檔案不是本工具的備份。'}})};
+ let nt='';if(o.vow){if(!vw.value){vw.value=o.vow;P('vow',o.vow)}else if(vw.value!==o.vow){nt='（備份中的發願文與目前不同，已保留目前這份；如要換用請先清空再還原）'}}[60,80].forEach(v=>{RD[v]=[...new Set([...(RD[v]||[]),...((o.read||{})[v]||[])])]});P('read',RD);if(window.drawR)drawR();sumup();$('bkmsg').textContent='已合併還原：田相取較進步者，記錄與讀過的願數合併。'+nt}catch(x){$('bkmsg').textContent='這個檔案不是本工具的備份。'}})};
 // 禪堂
-let tm;mk('sit',['5分','10分','15分','25分'],(b,t)=>{clearInterval(tm);let s=parseInt(t)*60;tm=setInterval(()=>{s--;$('clock').textContent='剩 '+Math.floor(s/60)+':'+String(s%60).padStart(2,'0');if(s<=0){clearInterval(tm);$('clock').textContent='時間到'}},1000)});
+let tm,tend=0;
+function ding(){try{const A=new (window.AudioContext||window.webkitAudioContext)();[0,1.6,3.2].forEach(d=>{const o=A.createOscillator(),g=A.createGain();o.frequency.value=528;o.connect(g);g.connect(A.destination);const t=A.currentTime+d;g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(.35,t+.02);g.gain.exponentialRampToValueAtTime(.0001,t+1.5);o.start(t);o.stop(t+1.6)})}catch(e){}try{navigator.vibrate&&navigator.vibrate([300,150,300])}catch(e){}}
+function tick(){const s=Math.round((tend-Date.now())/1000);if(s<=0){clearInterval(tm);$('clock').innerHTML='時間到，慢慢收攝，出定。 ';ding();return}$('clock').innerHTML='剩 '+Math.floor(s/60)+':'+String(s%60).padStart(2,'0')+' <button class="btn" onclick="stopSit()">停止</button>'}
+function stopSit(){clearInterval(tm);$('clock').textContent='已停止。'}
+mk('sit',['5分','10分','15分','25分'],(b,t)=>{clearInterval(tm);tend=Date.now()+parseInt(t)*60000;tick();tm=setInterval(tick,500)});
 
 // 淨行品
+const CH={在家:'zaijia',捨家:'shejia',剃度:'tidu',皈戒:'guijie',禪堂:'chantang',威儀:'weiyi',行腳:'xingjiao',乞食:'qishi',說法禮佛:'shuofa'};
 const V={60:'六十華嚴',80:'八十華嚴',0:'並排'};let jd={};let vm=S('ver',0);
 const files={60:'data/t0278_jingxing.json',80:'data/t0279_jingxing.json'};
 mk('ver',['六十華嚴','八十華嚴','並排'],(b,t)=>{vm=t=='六十華嚴'?60:t=='八十華嚴'?80:0;P('ver',vm);drawJx()});
 function drawJx(){[...$('ver').children].forEach(b=>b.classList.toggle('on',b.textContent==V[vm]));const root=$('jx');root.innerHTML='';
  const secs=['在家','捨家','剃度','皈戒','禪堂','威儀','行腳','乞食','說法禮佛','寢息'];
  const vs=vm?[vm]:[60,80];
- secs.forEach(sec=>{const d=document.createElement('details');d.className='card';const sm=document.createElement('summary');sm.textContent=sec;d.appendChild(sm);
+ secs.forEach(sec=>{const d=document.createElement('details');d.className='card';const sm=document.createElement('summary');sm.textContent=sec;d.appendChild(sm);if(CH[sec]){const im=document.createElement('img');im.src='assets/ch-'+CH[sec]+'.jpg';im.alt=sec;im.loading='lazy';im.className='chimg';d.appendChild(im)}
   const g=document.createElement('div');g.style.cssText='display:grid;gap:10px;grid-template-columns:repeat('+vs.length+',1fr)';
   vs.forEach(v=>{const c=document.createElement('div');const h=document.createElement('div');h.className='note';h.textContent=V[v];c.appendChild(h);
    ((jd[v]||{verses:[]}).verses).filter(x=>x.section==sec).forEach(x=>{const p=document.createElement('p');p.style.margin='6px 0';p.innerHTML='<span class="note">'+x.n+'</span> '+x.text;c.appendChild(p)});g.appendChild(c)});
