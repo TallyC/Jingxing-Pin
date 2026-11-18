@@ -5,44 +5,64 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>來生，出家簿</title>
 <style>
-:root{--ink:#2b2a27;--paper:#f6f1e6;--gray:#8a7f72;--bamboo:#6f8f7a;--gold:#d9b66b;--red:#b5442f;--line:#d8cfbd;--fs:18px}
-*{box-sizing:border-box}
-body{margin:0;background:var(--paper);color:var(--ink);font:var(--fs)/1.8 "Noto Serif TC","PMingLiU",serif;padding-bottom:84px}
-header{text-align:center;padding:18px 12px 6px}
-header h1{margin:0;font-size:1.3em;letter-spacing:.15em}
-header p{margin:4px 0 0;color:var(--gray);font-size:.85em}
-.logo{border-radius:14px;display:block;margin:0 auto 4px}
-main{max-width:640px;margin:0 auto;padding:8px 14px}
-section{display:none}section.on{display:block}
-nav{position:fixed;bottom:0;left:0;right:0;display:flex;background:#fffaf0;border-top:1px solid var(--line)}
-nav button{flex:1;padding:12px 0;border:0;background:none;font:inherit;font-size:.85em;color:var(--gray)}
-nav button.on{color:var(--ink);font-weight:700;border-top:3px solid var(--red);margin-top:-1px}
-.card{background:#fffaf0;border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin:12px 0}
-.card h3{margin:0 0 6px;font-size:1.05em}
-.note{color:var(--gray);font-size:.8em}
-.row{display:flex;gap:8px;flex-wrap:wrap}
-.btn{border:1px solid var(--gray);background:#fff;border-radius:8px;padding:8px 14px;font:inherit;font-size:.9em}
-.btn.on{background:var(--bamboo);border-color:var(--bamboo);color:#fff}
-.field{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;margin:10px 0}
-.tian{aspect-ratio:3/2;border:1px solid var(--gray);border-radius:3px;font-size:.62em;line-height:1.2;display:flex;align-items:center;justify-content:center;text-align:center;padding:2px;background:#f3eee4}
-.tian.s1{background:#cfe0d3}.tian.s2{background:#f1e2b8}
-.grp{font-size:.8em;color:var(--gray);margin-top:10px}
-.q{padding:8px 0;border-top:1px dashed var(--line)}
-.q:first-of-type{border-top:0}
-footer{text-align:center;color:var(--gray);font-size:.72em;padding:14px}
-.pend{color:var(--gray);font-style:italic}
+:root{--ink:#24221e;--mid:#6d665b;--faint:#a39b8d;--paper:#efe9dc;--red:#a8402c;--moss:#7f9684;--gold:#d8b46a;--fs:18px}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{background:var(--paper)}
+body{margin:0;color:var(--ink);font:300 var(--fs)/2 "Noto Serif TC","Source Han Serif TC","PMingLiU",serif;letter-spacing:.06em;padding-bottom:96px;
+background:radial-gradient(120% 60% at 85% -5%,rgba(216,180,106,.22),transparent 60%),radial-gradient(90% 50% at 0% 105%,rgba(127,150,132,.18),transparent 65%),var(--paper);min-height:100vh}
+header{padding:44px 24px 8px;text-align:center}
+.logo{width:56px;height:56px;border-radius:6px;display:block;margin:0 auto 18px;opacity:.95}
+header h1{margin:0;font-weight:300;font-size:1.5em;letter-spacing:.5em;padding-left:.5em}
+header p{margin:10px 0 0;color:var(--mid);font-size:.78em;letter-spacing:.35em}
+main{max-width:600px;margin:0 auto;padding:12px 26px}
+section{display:none;animation:in .9s ease both}section.on{display:block}
+@keyframes in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.card{background:none;border:0;border-top:1px solid rgba(36,34,30,.14);border-radius:0;padding:26px 0 8px;margin:22px 0 0}
+.card h3{margin:0 0 10px;font-weight:400;font-size:1em;letter-spacing:.3em;color:var(--ink)}
+.card h3::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--red);margin-right:12px;vertical-align:middle;opacity:.85}
+p{margin:.6em 0}
+.note{color:var(--mid);font-size:.78em;line-height:1.9}
+.pend{color:var(--faint);font-size:.85em}
+b{font-weight:400;border-bottom:1px solid var(--red)}
+.row{display:flex;gap:22px;flex-wrap:wrap;margin:10px 0}
+.btn{border:0;background:none;color:var(--faint);font:inherit;font-size:.9em;padding:4px 0;letter-spacing:.2em;border-bottom:1px solid transparent;cursor:pointer}
+.btn.on{color:var(--ink);border-bottom-color:var(--red)}
+.hero{display:flex;gap:26px;align-items:flex-start;justify-content:center;margin:30px 0 14px}
+.vert{writing-mode:vertical-rl;font-size:1.15em;letter-spacing:.55em;line-height:2.4;color:var(--ink);padding-top:6px;white-space:nowrap}
+.vert small{display:block;font-size:.55em;color:var(--mid);letter-spacing:.3em;margin-top:18px}
+.field{flex:1;display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin:0;padding:10px;position:relative}
+.field::before{content:"";position:absolute;inset:0;border:1px dashed rgba(36,34,30,.28);pointer-events:none}
+.tian{aspect-ratio:2/3.1;font-size:.6em;line-height:1.35;letter-spacing:.12em;display:flex;align-items:center;justify-content:center;text-align:center;padding:4px;color:var(--mid);position:relative;cursor:pointer;
+background:linear-gradient(160deg,rgba(255,255,255,.55),rgba(255,255,255,.12));border:1px solid rgba(36,34,30,.18);transition:background .8s,color .6s}
+.tian::after{content:"";position:absolute;inset:3px;border:1px dotted rgba(36,34,30,.18);pointer-events:none}
+.tian.s1{background:radial-gradient(circle at 40% 35%,rgba(127,150,132,.55),rgba(127,150,132,.18));color:var(--ink)}
+.tian.s2{background:radial-gradient(circle at 40% 35%,rgba(216,180,106,.6),rgba(216,180,106,.2));color:var(--ink)}
+.q{display:block;padding:6px 0}
+input[type=checkbox]{accent-color:var(--moss);width:1.1em;height:1.1em;vertical-align:-.15em;margin-right:.5em}
+details{border-top:1px solid rgba(36,34,30,.14);padding:14px 0}
+details.card{padding:16px 0;margin:0}
+summary{cursor:pointer;list-style:none;letter-spacing:.35em}
+summary::-webkit-details-marker{display:none}
+summary::before{content:"〇 ";color:var(--red);font-size:.7em}
+details[open]>summary::before{content:"● "}
+nav{position:fixed;bottom:0;left:0;right:0;display:flex;justify-content:center;gap:4px;padding:10px 12px 16px;background:linear-gradient(transparent,var(--paper) 40%)}
+nav button{flex:1;max-width:96px;border:0;background:none;font:inherit;font-size:.85em;letter-spacing:.35em;padding:10px 0 12px;color:var(--faint);position:relative}
+nav button.on{color:var(--ink)}
+nav button.on::after{content:"";position:absolute;left:50%;bottom:2px;width:5px;height:5px;margin-left:-2.5px;border-radius:50%;background:var(--red)}
+footer{text-align:center;color:var(--faint);font-size:.68em;letter-spacing:.15em;padding:30px 24px 10px;line-height:1.9}
 </style>
 </head>
 <body>
-<header><img class="logo" src="assets/logo-192.png" alt="淨字印" width="96" height="96"><h1>來生，出家簿</h1><p>今生善用其心，來世同佛出家</p></header>
+<header><img class="logo" src="assets/logo-192.png" alt="淨字印" width="112" height="112"><h1>來生，出家簿</h1></header>
 <main>
 
 <section id="t0" class="on">
-<div class="card"><h3>福田・十六塊田相</h3>
-<p class="note">這件袈裟是來生的我要披的。每一塊田相是一個出家前要準備的條件，由你自己填：已具足、正在準備、交給因緣。沒有不及格。</p>
+<div class="hero">
+<div class="vert">今生善用其心<br>來世同佛出家<small>善用其心　出自《華嚴經・淨行品》</small></div>
 <div class="field" id="field"></div>
-<p class="note">十六塊的分組是本工具的整理，不是經典分類。內容依聖嚴法師《律制生活》〈求度出家的條件〉所列十六輕遮。</p></div>
-<div class="card"><h3>標語</h3><p>今生善用其心，來世同佛出家。<br><span class="note">「善用其心」出自《華嚴經・淨行品》；六十華嚴作「如佛出家」。</span></p></div>
+</div>
+<p class="note" style="text-align:center">一件正在縫成的袈裟。十六塊田相，是出家前的十六件事。<br>點一下，依序：已具足、正在準備、交給因緣。沒有不及格。</p>
+<p class="note" style="text-align:center;margin-top:22px">分組與排列是本工具的整理，不是經典分類。<br>內容依聖嚴法師《律制生活》〈求度出家的條件〉所列十六輕遮。<br>六十華嚴作「如佛出家」。</p>
 </section>
 
 <section id="t1">
