@@ -66,7 +66,8 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;background:var
 #tmark{position:absolute;left:18px;bottom:14px;font-size:.75em;letter-spacing:.35em;color:var(--mid)}
 .field{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px;margin:16px 0 0;padding:0;position:relative}
 .field::before{display:none}
-.tian{aspect-ratio:2/2.5;font-size:.82em;border:0;border-radius:3px 7px 4px 6px;background:linear-gradient(155deg,rgba(255,253,246,.75),rgba(239,230,210,.55));box-shadow:0 1px 3px rgba(60,45,20,.12),inset 0 0 0 1px rgba(36,34,30,.06);padding:6px 2px;transition:background .6s}
+.tian{height:8.4em;min-width:0;font-size:.82em;border:0;border-radius:3px 7px 4px 6px;background:linear-gradient(155deg,rgba(255,253,246,.75),rgba(239,230,210,.55));box-shadow:0 1px 3px rgba(60,45,20,.12),inset 0 0 0 1px rgba(36,34,30,.06);padding:0;transition:background .6s;display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative;cursor:pointer;writing-mode:horizontal-tb;word-break:normal}
+.tian .tx{writing-mode:vertical-rl;-webkit-writing-mode:vertical-rl;line-height:1.35;letter-spacing:.08em;max-height:92%;text-align:center;color:var(--ink)}
 .tian:nth-child(odd){transform:rotate(-.5deg)}.tian:nth-child(even){transform:rotate(.4deg)}
 .tian::after{content:"";position:absolute;inset:5px;border:1px dashed rgba(168,64,44,.28);border-radius:2px;pointer-events:none}
 .tian.s1{background:linear-gradient(155deg,rgba(150,172,154,.62),rgba(127,150,132,.4))}.tian.s2{background:linear-gradient(155deg,rgba(228,196,128,.7),rgba(216,180,106,.42))}
@@ -221,7 +222,7 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;background:var
 </section>
 
 </main>
-<footer>V-0.011（2026-11-18）・AI 協助撰寫，請自行判斷；不主張著作權，歡迎廣傳。</footer>
+<footer>V-0.012（2026-11-18）・AI 協助撰寫，請自行判斷；不主張著作權，歡迎廣傳。</footer>
 <div id="fab" hidden><button id="fsec" hidden>本篇開頭</button><button id="ftop">↑ 頁首</button></div>
 <nav id="nav"></nav>
 
@@ -240,7 +241,7 @@ const st=S('gate',{}),lab=['','已具足','準備中'];
 let html='';G.forEach(g=>{});
 const MEAN={'不是奴婢':'奴婢','不是盜賊':'盜賊','沒有負債':'負債','父母同意':'父母不聽','不任軍公職':'軍公現職','沒有癩病':'癩','沒有白癩':'白癩','沒有癰疸':'癰疸','沒有癲狂':'癲狂','年滿二十':'年未滿二十','有衣缽':'無衣缽','非借來的衣缽':'借人衣缽','能自稱名':'不自稱名','能稱和尚名':'不稱和尚名','能乞戒':'不乞戒','不穿俗服外道服飾':'穿俗服外道服裝飾'};
 let ZH={},selT=null;
-function drawField(){const f=$('field');f.innerHTML='';G.forEach(g=>g[1].forEach(n=>{const d=document.createElement('div');const v=st[n]||0;d.className='tian s'+(v==1?1:v==2?2:0)+(selT==n?' sel':'');d.innerHTML=n+'<small>'+['','具足','準備'][v]+'</small>';d.onclick=()=>{selT=n;drawField()};f.appendChild(d)}));
+function drawField(){const f=$('field');f.innerHTML='';G.forEach(g=>g[1].forEach(n=>{const d=document.createElement('div');const v=st[n]||0;d.className='tian s'+(v==1?1:v==2?2:0)+(selT==n?' sel':'');d.innerHTML='<span class="tx">'+n+'</span><small style="position:absolute;bottom:4px;left:0;right:0;text-align:center">'+['','具足','準備'][v]+'</small>';d.onclick=()=>{selT=n;drawField()};f.appendChild(d)}));
  const t=$('tdet');if(!selT){t.innerHTML='<p class="note" style="text-align:center">點上面任一塊。</p>';}else{const g=(G.find(x=>x[1].includes(selT))||[])[0],z=ZH[MEAN[selT]];t.innerHTML='<div class="tt">'+selT+'</div><p class="note" style="margin:0">'+g+'・律中的相反情形是「'+(MEAN[selT]||'')+'」'+(z?'：'+z:'')+'</p><div class="seg" id="tseg"></div>';
   [['已具足',1],['正在準備',2],['交給因緣',0]].forEach(([l,v])=>{const b=document.createElement('button');b.textContent=l;b.className=(st[selT]||0)==v?'on':'';b.onclick=()=>{st[selT]=v;P('gate',st);drawField()};$('tseg').appendChild(b)})}
  if(window.READY)sumup()}
