@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>來生，出家簿</title>
 <style>
-:root{--ink:#24221e;--mid:#6d665b;--faint:#a39b8d;--paper:#efe9dc;--red:#a8402c;--moss:#7f9684;--gold:#d8b46a;--fs:18px}
+:root{--ink:#24221e;--mid:#6d665b;--faint:#7d7568;--paper:#efe9dc;--red:#a8402c;--moss:#7f9684;--gold:#d8b46a;--fs:18px}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html{background:var(--paper)}
 body{margin:0;color:var(--ink);font:300 var(--fs)/2 "Noto Serif TC","Source Han Serif TC","PMingLiU",serif;letter-spacing:.06em;padding-bottom:96px;
@@ -22,11 +22,11 @@ section{display:none;animation:in .9s ease both}section.on{display:block}
 .card h3{margin:0 0 10px;font-weight:400;font-size:1em;letter-spacing:.3em;color:var(--ink)}
 .card h3::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--red);margin-right:12px;vertical-align:middle;opacity:.85}
 p{margin:.6em 0}
-.note{color:var(--mid);font-size:.78em;line-height:1.9}
+.note{color:var(--mid);font-size:.85em;line-height:1.9}
 .pend{color:var(--faint);font-size:.85em}
 b{font-weight:400;border-bottom:1px solid var(--red)}
 .row{display:flex;gap:22px;flex-wrap:wrap;margin:10px 0}
-.btn{border:0;background:none;color:var(--faint);font:inherit;font-size:.9em;padding:4px 0;letter-spacing:.2em;border-bottom:1px solid transparent;cursor:pointer}
+.btn{border:0;background:none;color:var(--faint);font:inherit;font-size:.9em;padding:12px 10px;min-height:44px;min-width:44px;letter-spacing:.2em;border-bottom:1px solid transparent;cursor:pointer}
 .btn.on{color:var(--ink);border-bottom-color:var(--red)}
 .hero{display:flex;gap:14px;align-items:flex-start;justify-content:center;margin:30px 0 14px}
 .vert{flex:none;writing-mode:vertical-rl;font-size:1em;letter-spacing:.4em;line-height:2.1;color:var(--ink);padding-top:6px;white-space:nowrap}
@@ -53,7 +53,7 @@ nav{position:fixed;bottom:0;left:0;right:0;display:flex;justify-content:center;g
 nav button{flex:1;max-width:96px;border:0;background:none;font:inherit;font-size:min(.85em,15px);letter-spacing:.15em;white-space:nowrap;padding:10px 0 12px;color:var(--faint);position:relative}
 nav button.on{color:var(--ink)}
 nav button.on::after{content:"";position:absolute;left:50%;bottom:2px;width:5px;height:5px;margin-left:-2.5px;border-radius:50%;background:var(--red)}
-footer{text-align:center;color:var(--faint);font-size:.68em;letter-spacing:.15em;padding:30px 24px 10px;line-height:1.9}
+footer{text-align:center;color:var(--mid);font-size:.78em;letter-spacing:.15em;padding:30px 24px 10px;line-height:1.9}
 .big{display:flex;gap:12px;flex-wrap:wrap;margin:10px 0}
 .big button,.big label{flex:1;min-width:140px;text-align:center;padding:16px 10px;border:1px solid rgba(36,34,30,.3);background:rgba(255,255,255,.4);font:inherit;letter-spacing:.3em;color:var(--ink);cursor:pointer}
 .mrow{display:flex;align-items:center;gap:18px;padding:4px 0}.mrow span{width:2.2em;color:var(--mid)}
@@ -143,7 +143,7 @@ footer{text-align:center;color:var(--faint);font-size:.68em;letter-spacing:.15em
 </section>
 
 </main>
-<footer>V-0.008（2026-11-18）・AI 協助撰寫，請自行判斷；不主張著作權，歡迎廣傳。</footer>
+<footer>V-0.009（2026-11-18）・AI 協助撰寫，請自行判斷；不主張著作權，歡迎廣傳。</footer>
 <nav id="nav"></nav>
 
 <script>
@@ -189,7 +189,7 @@ function stopSit(){clearInterval(tm);$('clock').textContent='已停止。'}
 mk('sit',['5分','10分','15分','25分'],(b,t)=>{clearInterval(tm);tend=Date.now()+parseInt(t)*60000;tick();tm=setInterval(tick,500)});
 
 // 淨行品
-const CH={在家:'zaijia',捨家:'shejia',剃度:'tidu',皈戒:'guijie',禪堂:'chantang',威儀:'weiyi',行腳:'xingjiao',乞食:'qishi',說法禮佛:'shuofa'};
+const CH={在家:'zaijia',捨家:'shejia',剃度:'tidu',皈戒:'guijie',禪堂:'chantang',威儀:'weiyi',行腳:'xingjiao',乞食:'qishi',說法禮佛:'shuofa',寢息:'qinxi'};
 const V={60:'六十華嚴',80:'八十華嚴',0:'並排'};let jd={};let vm=S('ver',0);
 const files={60:'data/t0278_jingxing.json',80:'data/t0279_jingxing.json'};
 mk('ver',['六十華嚴','八十華嚴','並排'],(b,t)=>{vm=t=='六十華嚴'?60:t=='八十華嚴'?80:0;P('ver',vm);drawJx()});
@@ -206,19 +206,20 @@ function drawJx(){[...$('ver').children].forEach(b=>b.classList.toggle('on',b.te
 let rm=S('rm','讀'),rv=S('rv',60),ri=S('ri',0);const RD=S('read',{60:[],80:[]});
 const verses=()=>((jd[rv]||{}).verses||[]);
 mk('rmode',['讀','誦'],(b,t)=>{rm=t;P('rm',t);drawR()});
-mk('rver',['六十華嚴','八十華嚴'],(b,t)=>{rv=t=='六十華嚴'?60:80;P('rv',rv);ri=0;fillSec();drawR()});
+mk('rver',['六十華嚴','八十華嚴'],(b,t)=>{P('ri'+rv,ri);rv=t=='六十華嚴'?60:80;P('rv',rv);ri=S('ri'+rv,0);fillSec();drawR()});
 function fillSec(){const sel=$('rsec');sel.innerHTML='';['在家','捨家','剃度','皈戒','禪堂','威儀','行腳','乞食','說法禮佛','寢息'].forEach(n=>{const o=document.createElement('option');o.textContent=n;sel.appendChild(o)})}
 fillSec();
 $('rsec').onchange=e=>{const i=verses().findIndex(v=>v.section==e.target.value);if(i>=0){ri=i;drawR()}};
-$('rprev').onclick=()=>{ri=Math.max(0,ri-1);drawR()};$('rnext').onclick=()=>{ri=Math.min(verses().length-1,ri+1);drawR()};
+$('rprev').onclick=()=>{ri=Math.max(0,ri-1);P('ri',ri);drawR()};$('rnext').onclick=()=>{ri=Math.min(verses().length-1,ri+1);P('ri',ri);drawR()};
 function drawR(){const vs=verses();if(!vs.length){$('rcard').innerHTML='<span class="pend">經文載入中…</span>';return}ri=Math.min(ri,vs.length-1);P('ri',ri);const v=vs[ri];
  [...$('rmode').children].forEach(b=>b.classList.toggle('on',b.textContent==rm));[...$('rver').children].forEach(b=>b.classList.toggle('on',b.textContent==V[rv]));$('rsec').value=v.section;
  const done=RD[rv].includes(v.n);const c=$('rcard');
  const cond=v.text.slice(0,v.text.indexOf('，當願眾生')>0?v.text.indexOf('，當願眾生'):v.text.indexOf('當願眾生')>0?v.text.indexOf('當願眾生'):6);
- if(rm=='讀'){c.innerHTML='<p style="font-size:1.25em;line-height:2.3;letter-spacing:.14em;margin:0 0 14px">'+v.text.replace(/，/g,'，<br>').replace(/：/g,'：<br>')+'</p><p class="note">'+v.section+'・第 '+v.n+' 願</p><button class="btn'+(done?' on':'')+'" id="mark">'+(done?'已讀過':'讀過了')+'</button>';
-  $('mark').onclick=()=>{if(!RD[rv].includes(v.n))RD[rv].push(v.n);P('read',RD);drawR()}}
+ if(rm=='讀'){c.innerHTML='<p style="font-size:1.25em;line-height:2.3;letter-spacing:.14em;margin:0 0 14px">'+v.text.replace(/，/g,'，<br>').replace(/：/g,'：<br>')+'</p><p class="note">'+v.section+'・第 '+v.n+' 願</p><button class="btn'+(done?' on':'')+'" id="mark">'+(done?'已讀過':'讀過了')+'</button> <button class="btn on" id="mnext">'+(ri>=vs.length-1?'已是最後一願':'讀過了，下一願')+'</button>';
+  $('mark').onclick=()=>{if(!RD[rv].includes(v.n))RD[rv].push(v.n);P('read',RD);drawR()};
+  $('mnext').onclick=()=>{if(!RD[rv].includes(v.n))RD[rv].push(v.n);P('read',RD);if(ri<vs.length-1)ri++;P('ri',ri);drawR();window.scrollTo({top:$('rcard').offsetTop-120,behavior:'smooth'})}}
  else{c.innerHTML='<p style="font-size:1.25em;line-height:2.3;letter-spacing:.14em;margin:0 0 14px">'+cond+'……</p><p class="note">試著說出下一句，再點「看經文」。</p><button class="btn" id="show">看經文</button>';
-  $('show').onclick=()=>{c.innerHTML='<p style="font-size:1.25em;line-height:2.3;letter-spacing:.14em;margin:0 0 14px">'+v.text.replace(/，/g,'，<br>').replace(/：/g,'：<br>')+'</p><p class="note">'+v.section+'・第 '+v.n+' 願</p>'}}
+  $('show').onclick=()=>{c.innerHTML='<p style="font-size:1.25em;line-height:2.3;letter-spacing:.14em;margin:0 0 14px">'+v.text.replace(/，/g,'，<br>').replace(/：/g,'：<br>')+'</p><p class="note">'+v.section+'・第 '+v.n+' 願</p><button class="btn on" id="snext">'+(ri>=vs.length-1?'已是最後一願':'下一願')+'</button>';$('snext').onclick=()=>{if(ri<vs.length-1)ri++;P('ri',ri);drawR()}}}
  $('rstat').textContent=V[rv]+'　'+(ri+1)+' / '+vs.length+'　已讀過 '+RD[rv].length+' 願'}
 // 此刻一願
 function nowVow(){const h=new Date().getHours();let slot,kw;
@@ -232,7 +233,7 @@ fetch('data/zhenan.json').then(r=>r.json()).then(z=>{$('znsrc').textContent='依
  $('n13').innerHTML=z.nan13.map(x=>'<div class="q"><b>'+x.name+'</b> <span class="note">'+(x.kind=='行為'?'行為類':'身分生理類')+'</span><br><span class="note">'+x.mean+'</span></div>').join('');
  const gs=[...new Set(z.zhe16.map(x=>x.group))];
  $('z16').innerHTML=gs.map(g=>'<p class="note" style="margin:14px 0 2px">'+g+'</p>'+z.zhe16.filter(x=>x.group==g).map(x=>'<div class="q"><b>'+x.name+'</b><br><span class="note">'+x.mean+'</span></div>').join('')).join('')+'<p class="note">十六遮的分組是本工具的整理；聖嚴法師原文把病人併為一條、俗服等併為一條，此處依細項拆開。</p>'}).catch(()=>{});
-Promise.all([60,80].map(v=>fetch(files[v]).then(r=>r.json()).then(j=>{jd[v]=j}).catch(()=>{}))).then(()=>{if(!jd[60]&&!jd[80])$('jx').innerHTML='<p class="pend">經文載入失敗，請連線後重開。</p>';else{drawJx();drawR();nowVow()}});
+Promise.all([60,80].map(v=>fetch(files[v]).then(r=>r.json()).then(j=>{jd[v]=j}).catch(()=>{}))).then(()=>{if(!jd[60]&&!jd[80])$('rcard').innerHTML=$('jx').innerHTML='<p class="pend">經文載入失敗。請連線，並用網址（tallyc.github.io/Jingxing-Pin）開啟，不要直接打開下載的檔案。</p>';else{drawJx();drawR();nowVow()}});
 let size=S('fs',18);document.documentElement.style.setProperty('--fs',size+'px');
 function fs(d){size=Math.min(28,Math.max(14,size+d));P('fs',size);document.documentElement.style.setProperty('--fs',size+'px')}
 </script>
