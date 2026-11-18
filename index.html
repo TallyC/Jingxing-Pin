@@ -61,6 +61,37 @@ footer{text-align:center;color:var(--mid);font-size:.78em;letter-spacing:.15em;p
 .art img{display:block;width:100%;height:auto;-webkit-mask-image:linear-gradient(transparent,#000 14%,#000 78%,transparent);mask-image:linear-gradient(transparent,#000 14%,#000 78%,transparent)}
 .art .vert{position:absolute;top:5%;right:9%}
 .art .vert small{display:none}
+
+.tint{position:absolute;inset:0;pointer-events:none;mix-blend-mode:multiply;transition:background 2s}
+#tmark{position:absolute;left:18px;bottom:14px;font-size:.75em;letter-spacing:.35em;color:var(--mid)}
+.field{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;margin:14px 0 0;padding:0;position:relative;border:1px solid rgba(36,34,30,.3);background:rgba(255,252,244,.5)}
+.field::before{display:none}
+.tian{aspect-ratio:2/2.6;font-size:.82em;border:0;border-right:1px solid rgba(36,34,30,.25);border-bottom:1px solid rgba(36,34,30,.25);background:none;padding:6px 2px;transition:background .6s}
+.tian:nth-child(4n){border-right:0}.tian:nth-last-child(-n+4){border-bottom:0}
+.tian::after{inset:4px;border:1px dashed rgba(36,34,30,.16)}
+.tian.s1{background:rgba(127,150,132,.38)}.tian.s2{background:rgba(216,180,106,.42)}
+.tian.sel{outline:2px solid var(--red);outline-offset:-3px}
+.tian small{opacity:.8}
+.legend{display:flex;gap:16px;justify-content:center;font-size:.78em;color:var(--mid);margin:10px 0 0;flex-wrap:wrap}
+.legend i{display:inline-block;width:.9em;height:.9em;margin-right:.4em;vertical-align:-.1em;border:1px solid rgba(36,34,30,.3)}
+.tdet{min-height:4px}.tdet .tt{font-size:1.05em;letter-spacing:.3em;margin:14px 0 4px}
+.seg{display:flex;gap:0;margin:8px 0}.seg button{flex:1;min-height:44px;border:1px solid rgba(36,34,30,.3);margin-left:-1px;background:rgba(255,255,255,.35);font:inherit;font-size:.85em;color:var(--mid);letter-spacing:.15em}
+.seg button.on{background:rgba(36,34,30,.88);color:var(--paper)}
+#fab{position:fixed;right:12px;bottom:76px;display:flex;flex-direction:column;gap:8px;z-index:5}
+#fab button{min-height:44px;min-width:44px;padding:0 12px;border:1px solid rgba(36,34,30,.3);border-radius:22px;background:rgba(239,233,220,.92);font:inherit;font-size:.72em;color:var(--ink);letter-spacing:.1em}
+#fab[hidden],#fab button[hidden]{display:none}
+.vs{margin:0 0 1.2em}.vs .vn{display:block;font-size:.55em;color:var(--faint);letter-spacing:.2em}
+.rbar{position:sticky;bottom:62px;display:grid;grid-template-columns:1fr 1.3fr 1fr;gap:8px;padding:16px 0 6px;background:linear-gradient(transparent,var(--paper) 28%)}
+.rbar button{min-height:52px;border:1px solid rgba(36,34,30,.3);background:rgba(255,252,244,.8);font:inherit;font-size:.85em;letter-spacing:.2em;color:var(--ink)}
+.rbar button.main{background:rgba(36,34,30,.88);color:var(--paper)}
+.sg{margin:6px 0}.sg>span{display:inline-block;width:3.6em;font-size:.8em;color:var(--mid)}
+.sg .btn{padding:10px 8px}
+.hist{display:grid;grid-template-columns:5.2em 1fr;gap:2px 10px;font-size:.85em;padding:6px 0;border-bottom:1px solid rgba(36,34,30,.1)}
+.slot{display:flex;gap:10px;align-items:flex-start;padding:10px 0;border-bottom:1px solid rgba(36,34,30,.1)}
+.slot.now{background:linear-gradient(90deg,rgba(216,180,106,.25),transparent)}
+.slot .tm{width:5.6em;flex:none;font-size:.78em;color:var(--mid);line-height:1.9}
+.slot .tx{flex:1;font-size:.9em;line-height:1.8}
+.slot input{flex:none;margin-top:.5em}
 </style>
 <link rel="icon" href="assets/logo-192.png">
 </head>
@@ -70,54 +101,79 @@ footer{text-align:center;color:var(--mid);font-size:.78em;letter-spacing:.15em;p
 
 <section id="t0" class="on">
 <div class="art"><img src="assets/hero.jpg" alt="水彩：一件攤開的袈裟，遠處山路上有出家人的背影" width="900" height="1200">
+<div id="tint" class="tint"></div><div id="tmark"></div>
 <div class="vert">今生善用其心<br>來世同佛出家<small>善用其心　出自《華嚴經・淨行品》</small></div></div>
-<div class="field" id="field" style="margin:6px 0 16px"></div>
 <div class="card" id="now" style="text-align:center"></div>
-<p class="note" style="text-align:center">一件正在縫成的袈裟。十六塊田相，是出家前的十六件事。<br>點一下換狀態：交給因緣（空白）→已具足（綠）→正在準備（金）。這只是自己看的提醒，不是評斷，沒有不及格。</p>
-<p class="note" style="text-align:center;margin-top:22px">分組與排列是本工具的整理，不是經典分類。<br>內容依聖嚴法師《律制生活》〈求度出家的條件〉所列十六輕遮。<br>六十華嚴作「如佛出家」。</p>
+<div class="card"><h3>十六田相</h3>
+<p class="note">袈裟是一塊塊「田相」縫成的。這十六塊，是出家前要先具備的十六件事。點一塊，看白話說明，再標記自己的狀況。</p>
+<div class="field" id="field"></div>
+<div class="legend"><span><i style="background:rgba(127,150,132,.5)"></i>已具足</span><span><i style="background:rgba(216,180,106,.55)"></i>正在準備</span><span><i></i>交給因緣</span></div>
+<div class="tdet" id="tdet"></div>
+<details><summary>設計說明</summary>
+<p class="note">為什麼是方格？袈裟又稱「福田衣」，以條、塊割截縫成，形似田畦（依佛教辭典通說）；這裡借此當作十六關的象徵，不是經典對十六關的分類。</p>
+<p class="note">三種顏色只是自己看的提醒，不是評分，也不會有人看到。內容依聖嚴法師《律制生活》〈求度出家的條件〉所列十六輕遮；分組與排列是本工具的整理。六十華嚴作「如佛出家」。</p>
+<p class="note">首頁的色調與「此刻一願」會隨一天的時間改變：清晨、用餐、夜晚各取淨行品中對應的一願，其餘時段每天換一願。</p></details></div>
 </section>
 
 <section id="t1">
 <div class="card"><h3>淨行品</h3>
-<p class="note">《大方廣佛華嚴經・淨行品》。六十華嚴（T09n0278 卷6〈淨行品第七〉）共 <b>140</b> 願，八十華嚴（T10n0279 卷14〈淨行品第十一〉）共 <b>141</b> 願；聖嚴法師所講為 141 願。經文逐字取自 CBETA 大正藏底本，並經兩次逐字比對。</p>
+<p class="note">《大方廣佛華嚴經・淨行品》：六十華嚴 <b>140</b> 願，八十華嚴 <b>141</b> 願。</p>
 <div class="row" id="ver"></div>
-<p class="note">十段的分法是本工具為方便閱讀所做，不是經文原有的分品；行腳段兩版偈數不同（六十 57、八十 58），因此並排時不強行逐條對齊。</p></div>
+<details><summary>資料與分法說明</summary>
+<p class="note">六十華嚴為 T09n0278 卷6〈淨行品第七〉，八十華嚴為 T10n0279 卷14〈淨行品第十一〉；聖嚴法師所講為 141 願。經文逐字取自 CBETA 大正藏底本，並經兩次逐字比對。</p>
+<p class="note">十段的分法是本工具為方便閱讀所做，不是經文原有的分品；行腳段兩版偈數不同（六十 57、八十 58），因此並排時不強行逐條對齊。</p></details></div>
 <div id="jx"></div>
 </section>
 
 <section id="t2">
-<div class="card"><h3>平日用餐，是否收攝身心</h3>
-<p class="note">出家人在齋堂依行儀用飯稱「過堂」，並心存五觀。你每天用餐也可以這樣問自己：</p>
-<p><b>這一餐，我有收攝身心嗎？</b></p>
-<div id="meal"></div>
-<details><summary>食存五觀</summary>
+<div class="card"><h3>食存五觀</h3>
 <p>一、計功多少，量彼來處<br>二、忖己德行，全缺應供<br>三、防心離過，貪等為宗<br>四、正事良藥，為療形枯<br>五、為成道業，方受此食</p>
-<p class="note">出處：《毗尼日用切要香乳記》。不計分數、不扣分，沒有也不責備。</p></details></div>
-
+<p class="note">出處：《毗尼日用切要香乳記》。出家人在齋堂依行儀用飯稱「過堂」，並心存五觀。</p></div>
+<div class="card"><h3>這一餐，我有收攝身心嗎</h3>
+<p class="note">想起五觀，安安靜靜地吃，就是收攝。</p>
+<div id="meal"></div>
+<details><summary>為什麼是這三個選項</summary>
+<p class="note">不打分數、也不扣分。「中途想起」是給吃到一半才想起的人：能想起，就是覺察的開始，所以單獨列出。記錄會出現在「出家簿」的行儀記錄。</p></details></div>
 <div class="card"><h3>十善業道</h3>
 <p class="note">睡前只勾你守住的。名稱取自《十善業道經》。</p>
 <div id="shan"></div></div>
-
 <div class="card"><h3>禪堂</h3>
-<p class="note">靜坐計時。時間到會輕響三聲並震動（手機若設為靜音則無聲）。計時時請保持畫面開啟。</p>
+<p class="note">靜坐計時。時間到會輕響三聲並震動（手機若設為靜音則無聲）。計時時請保持畫面開啟；完整坐完會記進行儀記錄。</p>
 <div class="row" id="sit"></div><p id="clock" class="note"></p></div>
+<div class="card"><button class="btn" onclick="goTab(5)">到出家簿看行儀記錄 ›</button></div>
+</section>
 
-<div class="card"><h3>八關齋戒</h3>
-<p>一日一夜學出家。</p>
-<p class="note">八關齋戒須從法師或如法道場受持，本工具僅作簡介，不做記錄。</p></div>
+<section id="t5">
+<div class="card"><h3>一日出家</h3>
+<p>八關齋戒：一日一夜，學出家的生活。</p>
+<p class="note">八關齋戒是佛陀為在家眾開的方便法門，讓在家眾學習出家生活（南天寺《八關齋戒》）。須從法師或如法道場受持；本頁不能代替受戒，只幫你安排與記下這一天。</p>
+<div class="row"><button class="btn" id="dyon"></button></div></div>
+<div class="card"><h3>這一天的作息</h3>
+<p class="note">時間軸是本工具的參考安排，不是經典規定，請以所受道場的安排為準。目前所在的時段會淡淡標出。</p>
+<div id="dyt"></div></div>
+<div class="card"><h3>八戒一齋</h3>
+<p class="note">依《薩婆多論》（見南天寺《八關齋戒》）：八戒加一齋。</p>
+<div id="bg"></div>
+<details><summary>六齋日與出處</summary>
+<p class="note">六齋日：農曆每月初八、十四、十五、廿三、廿九、三十（小月無三十，以廿八、廿九計）。八關齋戒也可在其他日子受持（法增比丘《八關齋戒的受持與功德》）。</p>
+<p class="note">八關齋戒的前五支即五戒，但第三支改為「不淫」：夫妻之間也不行（南天寺《八關齋戒》）。</p></details></div>
 </section>
 
 <section id="t3">
 <div class="card"><h3>讀誦</h3>
 <div class="row" id="rmode"></div>
 <div class="row" id="rver"></div>
-<div class="row"><select id="rsec" style="font:inherit;font-size:.85em;border:0;border-bottom:1px solid rgba(36,34,30,.3);background:none;color:var(--ink);padding:4px 0"></select></div>
-<div id="rcard" style="min-height:230px;text-align:center;padding:26px 6px 10px"></div>
-<div class="row" style="justify-content:center;gap:34px"><button class="btn" id="rprev">上一願</button><button class="btn" id="rnext">下一願</button></div>
+<div class="row"><select id="rsec" style="font:inherit;font-size:.85em;border:0;border-bottom:1px solid rgba(36,34,30,.3);background:none;color:var(--ink);padding:4px 0;min-height:40px"></select></div>
+<details><summary>閱讀設定</summary><div id="rsetb"></div></details>
+<div id="rcard" style="min-height:200px;padding:22px 2px 6px"></div>
+<div class="rbar" id="rbar"></div>
 <p class="note" id="rstat" style="text-align:center"></p></div>
 </section>
 
 <section id="t4">
+<div class="card"><h3>行儀記錄</h3>
+<p class="note">用餐、十善、禪堂、一日出家的記錄都在這裡。只存在這台裝置，記得備份。</p>
+<div id="hist"></div></div>
 <div class="card"><h3>我的一日</h3><div id="today" class="note"></div></div>
 <div class="card"><h3>我的一生</h3><img id="selfimg" alt="來生的我" style="display:block;width:100%;max-width:340px;margin:6px auto 12px;-webkit-mask-image:linear-gradient(transparent,#000 12%,#000 85%,transparent);mask-image:linear-gradient(transparent,#000 12%,#000 85%,transparent)"><div id="life" class="note" style="text-align:center"></div></div>
 <div class="card"><h3>寫給來生的我</h3>
@@ -143,7 +199,8 @@ footer{text-align:center;color:var(--mid);font-size:.78em;letter-spacing:.15em;p
 </section>
 
 </main>
-<footer>V-0.009（2026-11-18）・AI 協助撰寫，請自行判斷；不主張著作權，歡迎廣傳。</footer>
+<footer>V-0.010（2026-11-18）・AI 協助撰寫，請自行判斷；不主張著作權，歡迎廣傳。</footer>
+<div id="fab" hidden><button id="fsec" hidden>本篇開頭</button><button id="ftop">↑ 頁首</button></div>
 <nav id="nav"></nav>
 
 <script>
@@ -151,42 +208,52 @@ const $=id=>document.getElementById(id);
 const S=(k,d)=>{try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}};
 const P=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}};
 // tabs
-const tabs=['福田','淨行','功課','讀誦','出家簿'];
-tabs.forEach((n,i)=>{const b=document.createElement('button');b.textContent=n;b.onclick=()=>{tabs.forEach((_,j)=>{$('t'+j).classList.toggle('on',i===j);$('nav').children[j].classList.toggle('on',i===j)})};$('nav').appendChild(b)});
+const tabs=[['福田','t0'],['淨行','t1'],['功課','t2'],['一日','t5'],['讀誦','t3'],['出家簿','t4']];
+function goTab(i){tabs.forEach((t,j)=>{$(t[1]).classList.toggle('on',i===j);$('nav').children[j].classList.toggle('on',i===j)});window.scrollTo(0,0);updFab()}
+tabs.forEach((t,i)=>{const b=document.createElement('button');b.textContent=t[0];b.onclick=()=>goTab(i);$('nav').appendChild(b)});
 $('nav').children[0].classList.add('on');
 // 十六關（聖嚴法師：十六輕遮；分組為工具整理）
 const G=[['自在無牽',['不是奴婢','不是盜賊','沒有負債']],['家緣',['父母同意','不任軍公職']],['身心',['沒有癩病','沒有白癩','沒有癰疸','沒有癲狂']],['年歲',['年滿二十']],['資具',['有衣缽','非借來的衣缽']],['儀軌',['能自稱名','能稱和尚名','能乞戒','不穿俗服外道服飾']]];
 const st=S('gate',{}),lab=['','已具足','準備中'];
 let html='';G.forEach(g=>{});
-function drawField(){const f=$('field');f.innerHTML='';G.forEach(g=>g[1].forEach(n=>{const d=document.createElement('div');const v=st[n]||0;d.className='tian s'+(v==1?1:v==2?2:0);d.innerHTML=n+'<small>'+['因緣','具足','準備'][v]+'</small>';d.title=['交給因緣','已具足','正在準備'][v];d.onclick=()=>{st[n]=((st[n]||0)+1)%3;P('gate',st);drawField()};f.appendChild(d)}));if(window.READY)sumup()}
+const MEAN={'不是奴婢':'奴婢','不是盜賊':'盜賊','沒有負債':'負債','父母同意':'父母不聽','不任軍公職':'軍公現職','沒有癩病':'癩','沒有白癩':'白癩','沒有癰疸':'癰疸','沒有癲狂':'癲狂','年滿二十':'年未滿二十','有衣缽':'無衣缽','非借來的衣缽':'借人衣缽','能自稱名':'不自稱名','能稱和尚名':'不稱和尚名','能乞戒':'不乞戒','不穿俗服外道服飾':'穿俗服外道服裝飾'};
+let ZH={},selT=null;
+function drawField(){const f=$('field');f.innerHTML='';G.forEach(g=>g[1].forEach(n=>{const d=document.createElement('div');const v=st[n]||0;d.className='tian s'+(v==1?1:v==2?2:0)+(selT==n?' sel':'');d.innerHTML=n+'<small>'+['','具足','準備'][v]+'</small>';d.onclick=()=>{selT=n;drawField()};f.appendChild(d)}));
+ const t=$('tdet');if(!selT){t.innerHTML='<p class="note" style="text-align:center">點上面任一塊。</p>';}else{const g=(G.find(x=>x[1].includes(selT))||[])[0],z=ZH[MEAN[selT]];t.innerHTML='<div class="tt">'+selT+'</div><p class="note" style="margin:0">'+g+'・律中的相反情形是「'+(MEAN[selT]||'')+'」'+(z?'：'+z:'')+'</p><div class="seg" id="tseg"></div>';
+  [['已具足',1],['正在準備',2],['交給因緣',0]].forEach(([l,v])=>{const b=document.createElement('button');b.textContent=l;b.className=(st[selT]||0)==v?'on':'';b.onclick=()=>{st[selT]=v;P('gate',st);drawField()};$('tseg').appendChild(b)})}
+ if(window.READY)sumup()}
 drawField();
 const mk=(id,arr,fn)=>arr.forEach(t=>{const b=document.createElement('button');b.className='btn';b.textContent=t;b.onclick=()=>fn(b,t);$(id).appendChild(b)});
 // 日記錄
 const today=()=>{const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')};
-let LOG=S('log',{});const day=()=>(LOG[today()]=LOG[today()]||{meal:{},shan:[]});
+let LOG=S('log',{});const fix=d=>{d.meal=d.meal||{};d.shan=d.shan||[];d.sit=d.sit||0;d.bg=d.bg||[];d.dy=d.dy||[];d.ok=d.ok||0;return d};const day=()=>fix(LOG[today()]=LOG[today()]||{});
 const sv=()=>{P('log',LOG);sumup()};
 // 平日用餐（早午晚）
-['早','午','晚'].forEach(k=>{const r=document.createElement('div');r.className='mrow';r.innerHTML='<span>'+k+'</span>';['有','一半','沒有'].forEach(t=>{const b=document.createElement('button');b.className='btn'+(day().meal[k]==t?' on':'');b.textContent=t;b.onclick=()=>{day().meal[k]=t;sv();[...r.querySelectorAll('.btn')].forEach(x=>x.classList.toggle('on',x===b))};r.appendChild(b)});$('meal').appendChild(r)});
+['早','午','晚'].forEach(k=>{const r=document.createElement('div');r.className='mrow';r.innerHTML='<span>'+k+'</span>';[['有','全程'],['中','中途想起'],['沒','忘了']].forEach(([t,lbl])=>{const b=document.createElement('button');b.className='btn'+((day().meal[k]==t||(t=='中'&&day().meal[k]=='一半')||(t=='沒'&&day().meal[k]=='沒有'))?' on':'');b.textContent=lbl;b.onclick=()=>{day().meal[k]=t;sv();[...r.querySelectorAll('.btn')].forEach(x=>x.classList.toggle('on',x===b))};r.appendChild(b)});$('meal').appendChild(r)});
 // 十善
 ['不殺生','不偷盜','不邪淫','不妄語','不兩舌','不惡口','不綺語','不貪欲','不瞋恚','不邪見'].forEach((t,i)=>{const l=document.createElement('label');l.className='q';const c=document.createElement('input');c.type='checkbox';c.checked=day().shan.includes(i);c.onchange=()=>{const a=day().shan;if(c.checked){if(!a.includes(i))a.push(i)}else day().shan=a.filter(x=>x!==i);sv()};l.appendChild(c);l.append((i<3?'身　':i<7?'口　':'意　')+t);$('shan').appendChild(l)});
 function sumup(){const d=day(),m=Object.keys(d.meal).length;
- $('today').innerHTML='今天（'+today()+'）：用餐自省 '+m+' 餐，守住十善 '+d.shan.length+' 條。<br>不計分，只是記下來。';
- const g=Object.values(st).filter(v=>v==1).length,pr=Object.values(st).filter(v=>v==2).length,ds=Object.keys(LOG).filter(k=>Object.keys(LOG[k].meal).length||LOG[k].shan.length).length;
+ drawHist();$('today').innerHTML='今天（'+today()+'）：用餐自省 '+m+' 餐，守住十善 '+d.shan.length+' 條。<br>不計分，只是記下來。';
+ const g=Object.values(st).filter(v=>v==1).length,pr=Object.values(st).filter(v=>v==2).length,ds=Object.keys(LOG).filter(k=>{const d=fix(LOG[k]);return Object.keys(d.meal).length||d.shan.length||d.sit||d.bg.length||d.ok}).length;
  $('selfimg').src='assets/self-'+(g<6?'A':g<12?'B':'C')+'.jpg';$('life').innerHTML='來生的我，隨十六關慢慢清楚。<br>十六關：已具足 '+g+'，正在準備 '+pr+'，其餘交給因緣。<br>已記錄 '+ds+' 天。'}
+function drawHist(){const ks=Object.keys(LOG).filter(k=>{const d=fix(LOG[k]);return Object.keys(d.meal).length||d.shan.length||d.sit||d.bg.length||d.ok}).sort().reverse();
+ const sym=v=>v=='有'?'●':(v=='中'||v=='一半')?'◐':v?'○':'－';
+ const row=k=>{const d=LOG[k];return '<div class="hist"><span>'+k.slice(5)+'</span><span>餐 '+['早','午','晚'].map(m=>sym(d.meal[m])).join(' ')+'　十善 '+d.shan.length+'/10'+(d.sit?'　禪堂 '+d.sit+' 分':'')+(d.ok?'　<b>一日出家</b>':'')+'</span></div>'};
+ $('hist').innerHTML=ks.length?'<p class="note">● 全程　◐ 中途想起　○ 忘了　－ 未記</p>'+ks.slice(0,14).map(row).join('')+(ks.length>14?'<details><summary>更早的記錄（'+(ks.length-14)+' 天）</summary>'+ks.slice(14).map(row).join('')+'</details>':''):'<p class="note">還沒有記錄。到「功課」或「一日」記下第一筆，這裡就會出現。</p>'}
 sumup();window.READY=true;
 const vw=$('vow');vw.value=S('vow','');vw.oninput=()=>P('vow',vw.value);
 // 備份與還原（合併進度）
-function bk(){const o={app:'jingxing-pin',ver:'V-0.008',gate:st,log:LOG,vow:vw.value,read:RD};const u=URL.createObjectURL(new Blob([JSON.stringify(o)],{type:'application/json'}));const a=document.createElement('a');a.href=u;a.download='來生出家簿-備份-'+today()+'.json';document.body.appendChild(a);a.click();a.remove();$('bkmsg').textContent='已備份，請到下載資料夾確認。若沒有反應，請改用 Chrome 或 Safari 開啟本網址。'}
+function bk(){const o={app:'jingxing-pin',ver:'V-0.010',gate:st,log:LOG,vow:vw.value,read:RD};const u=URL.createObjectURL(new Blob([JSON.stringify(o)],{type:'application/json'}));const a=document.createElement('a');a.href=u;a.download='來生出家簿-備份-'+today()+'.json';document.body.appendChild(a);a.click();a.remove();$('bkmsg').textContent='已備份，請到下載資料夾確認。若沒有反應，請改用 Chrome 或 Safari 開啟本網址。'}
 $('rf').onchange=e=>{const f=e.target.files[0];if(!f)return;f.text().then(t=>{try{const o=JSON.parse(t);if(o.app!=='jingxing-pin')throw 0;
  const rk=v=>v==1?3:v==2?2:0;Object.keys(o.gate||{}).forEach(k=>{if(rk(o.gate[k])>rk(st[k]||0))st[k]=o.gate[k]});P('gate',st);drawField();
- Object.keys(o.log||{}).forEach(k=>{const a=LOG[k]=LOG[k]||{meal:{},shan:[]},b=o.log[k];Object.assign(a.meal,b.meal||{});a.shan=[...new Set([...(a.shan||[]),...(b.shan||[])])]});P('log',LOG);
+ Object.keys(o.log||{}).forEach(k=>{const a=fix(LOG[k]=LOG[k]||{}),b=fix(o.log[k]);Object.keys(b.meal).forEach(m=>{if(!a.meal[m])a.meal[m]=b.meal[m]});a.shan=[...new Set([...a.shan,...b.shan])];a.bg=[...new Set([...a.bg,...b.bg])];a.dy=[...new Set([...a.dy,...b.dy])];a.sit=Math.max(a.sit,b.sit);a.ok=Math.max(a.ok,b.ok)});P('log',LOG);
  let nt='';if(o.vow){if(!vw.value){vw.value=o.vow;P('vow',o.vow)}else if(vw.value!==o.vow){nt='（備份中的發願文與目前不同，已保留目前這份；如要換用請先清空再還原）'}}[60,80].forEach(v=>{RD[v]=[...new Set([...(RD[v]||[]),...((o.read||{})[v]||[])])]});P('read',RD);if(window.drawR)drawR();sumup();$('bkmsg').textContent='已合併還原：田相取較進步者，記錄與讀過的願數合併。'+nt}catch(x){$('bkmsg').textContent='這個檔案不是本工具的備份。'}})};
 // 禪堂
-let tm,tend=0;
+let tm,tend=0,sitMin=0;
 function ding(){try{const A=new (window.AudioContext||window.webkitAudioContext)();[0,1.6,3.2].forEach(d=>{const o=A.createOscillator(),g=A.createGain();o.frequency.value=528;o.connect(g);g.connect(A.destination);const t=A.currentTime+d;g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(.35,t+.02);g.gain.exponentialRampToValueAtTime(.0001,t+1.5);o.start(t);o.stop(t+1.6)})}catch(e){}try{navigator.vibrate&&navigator.vibrate([300,150,300])}catch(e){}}
-function tick(){const s=Math.round((tend-Date.now())/1000);if(s<=0){clearInterval(tm);$('clock').innerHTML='時間到，慢慢收攝，出定。 ';ding();return}$('clock').innerHTML='剩 '+Math.floor(s/60)+':'+String(s%60).padStart(2,'0')+' <button class="btn" onclick="stopSit()">停止</button>'}
+function tick(){const s=Math.round((tend-Date.now())/1000);if(s<=0){clearInterval(tm);$('clock').innerHTML='時間到，慢慢收攝，出定。已記下 '+sitMin+' 分。';day().sit+=sitMin;sv();ding();return}$('clock').innerHTML='剩 '+Math.floor(s/60)+':'+String(s%60).padStart(2,'0')+' <button class="btn" onclick="stopSit()">停止</button>'}
 function stopSit(){clearInterval(tm);$('clock').textContent='已停止。'}
-mk('sit',['5分','10分','15分','25分'],(b,t)=>{clearInterval(tm);tend=Date.now()+parseInt(t)*60000;tick();tm=setInterval(tick,500)});
+mk('sit',['5分','10分','15分','25分'],(b,t)=>{clearInterval(tm);sitMin=parseInt(t);tend=Date.now()+sitMin*60000;tick();tm=setInterval(tick,500)});
 
 // 淨行品
 const CH={在家:'zaijia',捨家:'shejia',剃度:'tidu',皈戒:'guijie',禪堂:'chantang',威儀:'weiyi',行腳:'xingjiao',乞食:'qishi',說法禮佛:'shuofa',寢息:'qinxi'};
@@ -203,39 +270,68 @@ function drawJx(){[...$('ver').children].forEach(b=>b.classList.toggle('on',b.te
   d.appendChild(g);root.appendChild(d)})}
 
 // 讀誦
-let rm=S('rm','讀'),rv=S('rv',60),ri=S('ri',0);const RD=S('read',{60:[],80:[]});
+let rm=S('rm','讀'),rv=S('rv',60),ri=S('ri'+S('rv',60),0);const RD=S('read',{60:[],80:[]});
+const RS=Object.assign({fz:1.15,lh:2.3,per:1,dir:'h',brk:1},S('rset',{}));let shown=false;
 const verses=()=>((jd[rv]||{}).verses||[]);
-mk('rmode',['讀','誦'],(b,t)=>{rm=t;P('rm',t);drawR()});
-mk('rver',['六十華嚴','八十華嚴'],(b,t)=>{P('ri'+rv,ri);rv=t=='六十華嚴'?60:80;P('rv',rv);ri=S('ri'+rv,0);fillSec();drawR()});
-function fillSec(){const sel=$('rsec');sel.innerHTML='';['在家','捨家','剃度','皈戒','禪堂','威儀','行腳','乞食','說法禮佛','寢息'].forEach(n=>{const o=document.createElement('option');o.textContent=n;sel.appendChild(o)})}
-fillSec();
-$('rsec').onchange=e=>{const i=verses().findIndex(v=>v.section==e.target.value);if(i>=0){ri=i;drawR()}};
-$('rprev').onclick=()=>{ri=Math.max(0,ri-1);P('ri',ri);drawR()};$('rnext').onclick=()=>{ri=Math.min(verses().length-1,ri+1);P('ri',ri);drawR()};
-function drawR(){const vs=verses();if(!vs.length){$('rcard').innerHTML='<span class="pend">經文載入中…</span>';return}ri=Math.min(ri,vs.length-1);P('ri',ri);const v=vs[ri];
- [...$('rmode').children].forEach(b=>b.classList.toggle('on',b.textContent==rm));[...$('rver').children].forEach(b=>b.classList.toggle('on',b.textContent==V[rv]));$('rsec').value=v.section;
- const done=RD[rv].includes(v.n);const c=$('rcard');
- const cond=v.text.slice(0,v.text.indexOf('，當願眾生')>0?v.text.indexOf('，當願眾生'):v.text.indexOf('當願眾生')>0?v.text.indexOf('當願眾生'):6);
- if(rm=='讀'){c.innerHTML='<p style="font-size:1.25em;line-height:2.3;letter-spacing:.14em;margin:0 0 14px">'+v.text.replace(/，/g,'，<br>').replace(/：/g,'：<br>')+'</p><p class="note">'+v.section+'・第 '+v.n+' 願</p><button class="btn'+(done?' on':'')+'" id="mark">'+(done?'已讀過':'讀過了')+'</button> <button class="btn on" id="mnext">'+(ri>=vs.length-1?'已是最後一願':'讀過了，下一願')+'</button>';
-  $('mark').onclick=()=>{if(!RD[rv].includes(v.n))RD[rv].push(v.n);P('read',RD);drawR()};
-  $('mnext').onclick=()=>{if(!RD[rv].includes(v.n))RD[rv].push(v.n);P('read',RD);if(ri<vs.length-1)ri++;P('ri',ri);drawR();window.scrollTo({top:$('rcard').offsetTop-120,behavior:'smooth'})}}
- else{c.innerHTML='<p style="font-size:1.25em;line-height:2.3;letter-spacing:.14em;margin:0 0 14px">'+cond+'……</p><p class="note">試著說出下一句，再點「看經文」。</p><button class="btn" id="show">看經文</button>';
-  $('show').onclick=()=>{c.innerHTML='<p style="font-size:1.25em;line-height:2.3;letter-spacing:.14em;margin:0 0 14px">'+v.text.replace(/，/g,'，<br>').replace(/：/g,'：<br>')+'</p><p class="note">'+v.section+'・第 '+v.n+' 願</p><button class="btn on" id="snext">'+(ri>=vs.length-1?'已是最後一願':'下一願')+'</button>';$('snext').onclick=()=>{if(ri<vs.length-1)ri++;P('ri',ri);drawR()}}}
- $('rstat').textContent=V[rv]+'　'+(ri+1)+' / '+vs.length+'　已讀過 '+RD[rv].length+' 願'}
+mk('rmode',['讀','誦'],(b,t)=>{rm=t;P('rm',t);shown=false;drawR()});
+mk('rver',['六十華嚴','八十華嚴'],(b,t)=>{P('ri'+rv,ri);rv=t=='六十華嚴'?60:80;P('rv',rv);ri=S('ri'+rv,0);shown=false;drawR()});
+const SECS=['在家','捨家','剃度','皈戒','禪堂','威儀','行腳','乞食','說法禮佛','寢息'];
+(function(){const sel=$('rsec');SECS.forEach(n=>{const o=document.createElement('option');o.textContent=n;sel.appendChild(o)})})();
+$('rsec').onchange=e=>{const i=verses().findIndex(v=>v.section==e.target.value);if(i>=0){ri=i;shown=false;drawR()}};
+// 閱讀設定
+const SET=[['字級','fz',[['小',1],['中',1.15],['大',1.4],['特大',1.7]]],['行距','lh',[['緊',1.9],['標準',2.3],['寬',2.9]]],['每頁','per',[['1 願',1],['3 願',3],['5 願',5]]],['排版','dir',[['橫排','h'],['直排','v']]],['斷句','brk',[['每句換行',1],['連續',0]]]];
+function drawSet(){const w=$('rsetb');w.innerHTML='';SET.forEach(([name,key,opts])=>{const r=document.createElement('div');r.className='sg';r.innerHTML='<span>'+name+'</span>';opts.forEach(([l,v])=>{const b=document.createElement('button');b.className='btn'+(RS[key]===v?' on':'');b.textContent=l;b.onclick=()=>{RS[key]=v;P('rset',RS);if(key=='per')ri=Math.floor(ri/RS.per)*RS.per;shown=false;drawSet();drawR()};r.appendChild(b)});w.appendChild(r)})}
+drawSet();
+const fmt=t=>RS.brk?t.replace(/，/g,'，<br>').replace(/：/g,'：<br>'):t;
+function go(d){const vs=verses();const n=RS.per;const x=ri+d*n;if(x<0||x>=vs.length)return;ri=x;shown=false;P('ri'+rv,ri);drawR();window.scrollTo({top:$('rcard').getBoundingClientRect().top+scrollY-90,behavior:'smooth'})}
+function markPage(){const vs=verses();vs.slice(ri,ri+RS.per).forEach(v=>{if(!RD[rv].includes(v.n))RD[rv].push(v.n)});P('read',RD)}
+function drawR(){const vs=verses();const c=$('rcard');if(!vs.length){c.innerHTML='<span class="pend">經文載入中…</span>';return}
+ const n=RS.per;ri=Math.floor(Math.min(ri,vs.length-1)/n)*n;P('ri'+rv,ri);const page=vs.slice(ri,ri+n);
+ [...$('rmode').children].forEach(b=>b.classList.toggle('on',b.textContent==rm));[...$('rver').children].forEach(b=>b.classList.toggle('on',b.textContent==V[rv]));$('rsec').value=page[0].section;
+ c.style.fontSize=RS.fz+'em';c.style.lineHeight=RS.lh;c.style.letterSpacing='.12em';
+ if(RS.dir=='v'){c.style.writingMode='vertical-rl';c.style.height='min(58vh,440px)';c.style.overflowX='auto';c.style.textAlign='start'}else{c.style.writingMode='';c.style.height='';c.style.overflowX='';c.style.textAlign='center'}
+ const cond=v=>{const t=v.text,i=t.indexOf('，當願眾生'),j=t.indexOf('當願眾生');return t.slice(0,i>0?i:j>0?j:6)+'……'};
+ const done=page.every(v=>RD[rv].includes(v.n));
+ if(rm=='讀'||shown)c.innerHTML=page.map(v=>'<div class="vs"><span class="vn">'+page[0].section+'・第 '+v.n+' 願</span>'+fmt(v.text)+'</div>').join('');
+ else c.innerHTML=page.map(v=>'<div class="vs"><span class="vn">第 '+v.n+' 願</span>'+cond(v)+'</div>').join('')+'<p class="note">試著說出下一句，再點「看經文」。</p>';
+ const bar=$('rbar');bar.innerHTML='';const mkb=(t,f,cls)=>{const b=document.createElement('button');b.textContent=t;b.onclick=f;if(cls)b.className=cls;bar.appendChild(b)};
+ mkb('‹ 上一頁',()=>go(-1));
+ if(rm=='誦'&&!shown)mkb('看經文',()=>{shown=true;drawR()},'main');else mkb(ri+n>=vs.length?'讀誦完畢':(rm=='誦'?'誦過了 ›':'讀過了 ›'),()=>{markPage();if(ri+n<vs.length)go(1);else drawR()},'main');
+ mkb('下一頁 ›',()=>go(1));
+ $('rstat').textContent=V[rv]+'　第 '+(ri+1)+(n>1?'–'+Math.min(ri+n,vs.length):'')+' 願 / '+vs.length+'　已讀過 '+RD[rv].length+' 願'+(done?'（本頁已讀過）':'')}
+// 滑動與鍵盤換頁
+(function(){let x0=null;const c=$('rcard');c.addEventListener('touchstart',e=>{x0=e.touches[0].clientX},{passive:true});c.addEventListener('touchend',e=>{if(x0==null)return;const dx=e.changedTouches[0].clientX-x0;x0=null;if(Math.abs(dx)>70)go(dx<0?1:-1)},{passive:true});
+document.addEventListener('keydown',e=>{if($('t3').classList.contains('on')&&/Arrow(Left|Right)/.test(e.key)&&!/INPUT|SELECT|TEXTAREA/.test(document.activeElement.tagName))go(e.key=='ArrowRight'?1:-1)})})();
 // 此刻一願
 function nowVow(){const h=new Date().getHours();let slot,kw;
  if(h>=5&&h<9){slot='清晨';kw=['晨朝覺悟','睡眠始寤']}else if((h>=11&&h<13)||(h>=17&&h<19)||(h>=6&&h<9)){slot='用餐';kw=['若飯食時','若得食時','若得美食','飯食已訖']}else if(h>=21||h<5){slot='夜晚';kw=['昏夜寢息','以時寢息','若洗足時']}else{slot='今日';kw=[]}
  const pick=v=>{const vs=(jd[v]||{}).verses||[];let x=null;kw.some(k=>(x=vs.find(y=>y.cond==k)));return x||(vs.length?vs[(new Date().getDate()+new Date().getMonth()*31)%vs.length]:null)};
  const a=pick(60),b=pick(80);if(!a&&!b)return;
- $('now').innerHTML='<h3 style="letter-spacing:.3em;font-weight:400;margin:0 0 10px">'+(kw.length?'此刻・'+slot:'今日一願')+'</h3>'+(a?'<p style="margin:6px 0;line-height:2.1">'+a.text.replace(/。$/,'')+'</p><p class="note" style="margin:0">六十華嚴・'+a.section+'</p>':'')+(b?'<p style="margin:14px 0 6px;line-height:2.1;color:var(--mid)">'+b.text.replace(/。$/,'')+'</p><p class="note" style="margin:0">八十華嚴・'+b.section+'</p>':'')}
+ $('now').innerHTML='<h3 style="letter-spacing:.3em;font-weight:400;margin:0 0 10px">'+(kw.length?'此刻・'+slot:'今日一願')+'</h3>'+(a?'<p style="margin:6px 0;line-height:2.1">'+a.text.replace(/。$/,'')+'</p><p class="note" style="margin:0">六十華嚴</p>':'')+(b?'<p style="margin:14px 0 6px;line-height:2.1;color:var(--mid)">'+b.text.replace(/。$/,'')+'</p><p class="note" style="margin:0">八十華嚴</p>':'')}
 
+function timeSlot(){const h=new Date().getHours();return h>=5&&h<8?['晨朝覺悟','rgba(255,205,140,.30)']:h>=8&&h<11?['上午','rgba(255,240,200,.12)']:h>=11&&h<13?['日中','rgba(255,250,235,.05)']:h>=13&&h<17?['午後','rgba(240,225,190,.14)']:h>=17&&h<19?['傍晚','rgba(235,150,110,.30)']:['昏夜寢息','rgba(60,75,115,.42)']}
+(function(){const [n,c]=timeSlot();$('tint').style.background=c;$('tmark').textContent=n})();
 // 十三難・十六遮
-fetch('data/zhenan.json').then(r=>r.json()).then(z=>{$('znsrc').textContent='依據：'+z.source;
+fetch('data/zhenan.json').then(r=>r.json()).then(z=>{z.zhe16.forEach(x=>{ZH[x.name]=x.mean});drawField();$('znsrc').textContent='依據：'+z.source;
  $('n13').innerHTML=z.nan13.map(x=>'<div class="q"><b>'+x.name+'</b> <span class="note">'+(x.kind=='行為'?'行為類':'身分生理類')+'</span><br><span class="note">'+x.mean+'</span></div>').join('');
  const gs=[...new Set(z.zhe16.map(x=>x.group))];
  $('z16').innerHTML=gs.map(g=>'<p class="note" style="margin:14px 0 2px">'+g+'</p>'+z.zhe16.filter(x=>x.group==g).map(x=>'<div class="q"><b>'+x.name+'</b><br><span class="note">'+x.mean+'</span></div>').join('')).join('')+'<p class="note">十六遮的分組是本工具的整理；聖嚴法師原文把病人併為一條、俗服等併為一條，此處依細項拆開。</p>'}).catch(()=>{});
 Promise.all([60,80].map(v=>fetch(files[v]).then(r=>r.json()).then(j=>{jd[v]=j}).catch(()=>{}))).then(()=>{if(!jd[60]&&!jd[80])$('rcard').innerHTML=$('jx').innerHTML='<p class="pend">經文載入失敗。請連線，並用網址（tallyc.github.io/Jingxing-Pin）開啟，不要直接打開下載的檔案。</p>';else{drawJx();drawR();nowVow()}});
 let size=S('fs',18);document.documentElement.style.setProperty('--fs',size+'px');
 function fs(d){size=Math.min(28,Math.max(14,size+d));P('fs',size);document.documentElement.style.setProperty('--fs',size+'px')}
+
+// ---- 一日出家 ----
+const DY=[['04:30–06:00','起身，晨朝覺悟。可讀淨行品「晨朝覺悟」一願。',4.5,6],['06:00–07:00','受持八關齋戒（從法師或如法道場；一日一夜自此起算）。',6,7],['07:00–08:00','早齋，午前用餐；食存五觀。',7,8],['08:00–11:00','誦經、禪坐、聽法，或安靜作務。',8,11],['11:00–12:00','午齋，於正午前用畢（過午不食）。',11,12],['12:00–17:00','靜坐、讀誦、經行；不再進食。',12,17],['17:00–21:00','晚課、懺悔、迴向，洗足就寢前整理身心。',17,21],['21:00–次日04:30','寢息：睡低床、板床，不臥高廣大床。次晨戒期圓滿，迴向。',21,28.5]];
+const BG=[['不殺生',''],['不偷盜',''],['不淫','（連夫妻之間也不行）'],['不妄語',''],['不飲酒',''],['不著華鬘、香油塗身',''],['不歌舞觀聽',''],['不坐臥高廣大床',''],['不非時食（齋）','：午後不進食']];
+function drawDy(){const d=day(),h=new Date().getHours()+new Date().getMinutes()/60,hh=h<4.5?h+24:h;
+ $('dyon').textContent=d.ok?'● 今天我學出家（再點一次取消）':'〇 今天我學出家';$('dyon').className='btn'+(d.ok?' on':'');
+ $('dyt').innerHTML='';DY.forEach((x,i)=>{const r=document.createElement('label');r.className='slot'+(hh>=x[2]&&hh<x[3]?' now':'');r.innerHTML='<span class="tm">'+x[0]+'</span><span class="tx">'+x[1]+'</span>';const c=document.createElement('input');c.type='checkbox';c.checked=d.dy.includes(i);c.onchange=()=>{c.checked?d.dy.push(i):d.dy=d.dy.filter(v=>v!==i);sv()};r.appendChild(c);$('dyt').appendChild(r)});
+ $('bg').innerHTML='';BG.forEach((x,i)=>{const l=document.createElement('label');l.className='q';const c=document.createElement('input');c.type='checkbox';c.checked=d.bg.includes(i);c.onchange=()=>{c.checked?d.bg.push(i):d.bg=d.bg.filter(v=>v!==i);sv()};l.appendChild(c);l.append((i+1)+'　'+x[0]+x[1]);$('bg').appendChild(l)})}
+$('dyon').onclick=()=>{const d=day();d.ok=d.ok?0:1;sv();drawDy()};
+drawDy();
+// ---- 浮動按鈕 ----
+function updFab(){const y=scrollY;$('fab').hidden=y<500;let sec=null;if($('t1').classList.contains('on'))[...document.querySelectorAll('#jx details[open]')].forEach(d=>{const r=d.getBoundingClientRect();if(r.top<-80&&r.bottom>200)sec=d});$('fsec').hidden=!sec;$('fsec').onclick=()=>sec&&window.scrollTo({top:sec.getBoundingClientRect().top+scrollY-10,behavior:'smooth'})}
+addEventListener('scroll',updFab,{passive:true});$('ftop').onclick=()=>window.scrollTo({top:0,behavior:'smooth'});
 </script>
 </body>
 </html>
