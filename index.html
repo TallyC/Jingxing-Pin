@@ -50,6 +50,9 @@ nav button{flex:1;max-width:96px;border:0;background:none;font:inherit;font-size
 nav button.on{color:var(--ink)}
 nav button.on::after{content:"";position:absolute;left:50%;bottom:2px;width:5px;height:5px;margin-left:-2.5px;border-radius:50%;background:var(--red)}
 footer{text-align:center;color:var(--faint);font-size:.68em;letter-spacing:.15em;padding:30px 24px 10px;line-height:1.9}
+.big{display:flex;gap:12px;flex-wrap:wrap;margin:10px 0}
+.big button,.big label{flex:1;min-width:140px;text-align:center;padding:16px 10px;border:1px solid rgba(36,34,30,.3);background:rgba(255,255,255,.4);font:inherit;letter-spacing:.3em;color:var(--ink);cursor:pointer}
+.mrow{display:flex;align-items:center;gap:18px;padding:4px 0}.mrow span{width:2.2em;color:var(--mid)}
 </style>
 </head>
 <body>
@@ -77,10 +80,10 @@ footer{text-align:center;color:var(--faint);font-size:.68em;letter-spacing:.15em
 <div class="card"><h3>平日用餐，是否收攝身心</h3>
 <p class="note">出家人在齋堂依行儀用飯稱「過堂」，並心存五觀。你每天用餐也可以這樣問自己：</p>
 <p><b>這一餐，我有收攝身心嗎？</b></p>
-<div class="row" id="meal"></div>
+<div id="meal"></div>
 <details><summary>食存五觀</summary>
 <p>一、計功多少，量彼來處<br>二、忖己德行，全缺應供<br>三、防心離過，貪等為宗<br>四、正事良藥，為療形枯<br>五、為成道業，方受此食</p>
-<p class="note">出處：《毗尼日用切要香乳記》。不計分數、不扣分。</p></details></div>
+<p class="note">出處：《毗尼日用切要香乳記》。不計分數、不扣分，沒有也不責備。</p></details></div>
 
 <div class="card"><h3>十善業道</h3>
 <p class="note">睡前只勾你守住的。名稱取自《十善業道經》。</p>
@@ -100,17 +103,30 @@ footer{text-align:center;color:var(--faint);font-size:.68em;letter-spacing:.15em
 </section>
 
 <section id="t4">
+<div class="card"><h3>我的一日</h3><div id="today" class="note"></div></div>
+<div class="card"><h3>我的一生</h3><div id="life" class="note"></div></div>
+<div class="card"><h3>寫給來生的我</h3>
+<p class="note">用自己的話寫一段發願。只存在這台裝置。</p>
+<textarea id="vow" rows="5" style="width:100%;border:0;border-bottom:1px solid rgba(36,34,30,.25);background:rgba(255,255,255,.35);font:inherit;font-size:.9em;padding:10px;color:var(--ink);resize:vertical"></textarea></div>
 <div class="card"><h3>十三難・十六遮</h3>
 <p class="note">以下是受戒時戒師會問的項目（問遮難），是律制審查，不是對你的評斷。依聖嚴法師《律制生活》〈求度出家的條件〉。</p>
 <p>十三難：壞內外道、破他梵行、賊心入道、黃門、二根、畜牲變人形、非人變人形、犯邊罪、弒父、弒母、弒阿羅漢、破和合僧、出佛身血。</p>
 <p class="note">警語漫畫與原文問答格式建置中。</p></div>
+<div class="card"><h3>備份與還原</h3>
+<p class="note">進度只存在這台裝置。換手機或清除瀏覽器前，請先備份。</p>
+<div class="big"><button onclick="bk()">備份到檔案</button><label>從檔案還原<input type="file" accept=".json" id="rf" hidden></label></div>
+<p class="note" id="bkmsg"></p></div>
 <div class="card"><h3>設定</h3>
-<div class="row"><button class="btn" onclick="fs(2)">字放大</button><button class="btn" onclick="fs(-2)">字縮小</button></div>
-<p class="note">資料只存在這台裝置。備份與還原功能建置中。<br>署名：Tally.C</p></div>
+<div class="row"><button class="btn" onclick="fs(2)">字放大</button><button class="btn" onclick="fs(-2)">字縮小</button></div></div>
+<div class="card"><h3>說明</h3>
+<p class="note">《大方廣佛華嚴經・淨行品》經文取自 CBETA 大正藏底本（六十華嚴 T09n0278 卷6，八十華嚴 T10n0279 卷14）。出家條件與十三難、十六遮依聖嚴法師《律制生活》〈求度出家的條件〉。食存五觀出自《毗尼日用切要香乳記》。十善業道名稱取自《十善業道經》。</p>
+<p class="note">本工具是修行提醒，不是出家資格的判定；出家與受戒請親近法師、如法道場。AI 協助撰寫，請自行判斷；不主張著作權，歡迎廣傳。</p>
+<p class="note">想把這份好意流通出去，可以隨喜：法鼓山大願興學、慈濟、無國界醫生。</p>
+<p class="note">署名：Tally.C</p></div>
 </section>
 
 </main>
-<footer>V-0.003（2026-11-18）・AI 協助撰寫，請自行判斷；不主張著作權，歡迎廣傳。</footer>
+<footer>V-0.004（2026-11-18）・AI 協助撰寫，請自行判斷；不主張著作權，歡迎廣傳。</footer>
 <nav id="nav"></nav>
 
 <script>
@@ -125,13 +141,29 @@ $('nav').children[0].classList.add('on');
 const G=[['自在無牽',['不是奴婢','不是盜賊','沒有負債']],['家緣',['父母同意','不任軍公職']],['身心',['沒有癩病','沒有白癩','沒有癰疸','沒有癲狂']],['年歲',['年滿二十']],['資具',['有衣缽','非借來的衣缽']],['儀軌',['能自稱名','能稱和尚名','能乞戒','不穿俗服外道服飾']]];
 const st=S('gate',{}),lab=['','已具足','準備中'];
 let html='';G.forEach(g=>{});
-function drawField(){const f=$('field');f.innerHTML='';G.forEach(g=>g[1].forEach(n=>{const d=document.createElement('div');const v=st[n]||0;d.className='tian s'+(v==1?1:v==2?2:0);d.textContent=n;d.title=['交給因緣','已具足','正在準備'][v];d.onclick=()=>{st[n]=((st[n]||0)+1)%3;P('gate',st);drawField()};f.appendChild(d)}))}
+function drawField(){const f=$('field');f.innerHTML='';G.forEach(g=>g[1].forEach(n=>{const d=document.createElement('div');const v=st[n]||0;d.className='tian s'+(v==1?1:v==2?2:0);d.textContent=n;d.title=['交給因緣','已具足','正在準備'][v];d.onclick=()=>{st[n]=((st[n]||0)+1)%3;P('gate',st);drawField()};f.appendChild(d)}));if(window.READY)sumup()}
 drawField();
-// 平日用餐
 const mk=(id,arr,fn)=>arr.forEach(t=>{const b=document.createElement('button');b.className='btn';b.textContent=t;b.onclick=()=>fn(b,t);$(id).appendChild(b)});
-mk('meal',['有','一半','沒有'],(b)=>{[...$('meal').children].forEach(x=>x.classList.remove('on'));b.classList.add('on')});
+// 日記錄
+const today=()=>{const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')};
+let LOG=S('log',{});const day=()=>(LOG[today()]=LOG[today()]||{meal:{},shan:[]});
+const sv=()=>{P('log',LOG);sumup()};
+// 平日用餐（早午晚）
+['早','午','晚'].forEach(k=>{const r=document.createElement('div');r.className='mrow';r.innerHTML='<span>'+k+'</span>';['有','一半','沒有'].forEach(t=>{const b=document.createElement('button');b.className='btn'+(day().meal[k]==t?' on':'');b.textContent=t;b.onclick=()=>{day().meal[k]=t;sv();[...r.querySelectorAll('.btn')].forEach(x=>x.classList.toggle('on',x===b))};r.appendChild(b)});$('meal').appendChild(r)});
 // 十善
-['不殺生','不偷盜','不邪淫','不妄語','不兩舌','不惡口','不綺語','不貪欲','不瞋恚','不邪見'].forEach((t,i)=>{const l=document.createElement('label');l.className='q';l.style.display='block';l.innerHTML='<input type="checkbox"> '+(i<3?'身　':i<7?'口　':'意　')+t;$('shan').appendChild(l)});
+['不殺生','不偷盜','不邪淫','不妄語','不兩舌','不惡口','不綺語','不貪欲','不瞋恚','不邪見'].forEach((t,i)=>{const l=document.createElement('label');l.className='q';const c=document.createElement('input');c.type='checkbox';c.checked=day().shan.includes(i);c.onchange=()=>{const a=day().shan;if(c.checked){if(!a.includes(i))a.push(i)}else day().shan=a.filter(x=>x!==i);sv()};l.appendChild(c);l.append((i<3?'身　':i<7?'口　':'意　')+t);$('shan').appendChild(l)});
+function sumup(){const d=day(),m=Object.keys(d.meal).length;
+ $('today').innerHTML='今天（'+today()+'）：用餐自省 '+m+' 餐，守住十善 '+d.shan.length+' 條。<br>不計分，只是記下來。';
+ const g=Object.values(st).filter(v=>v==1).length,pr=Object.values(st).filter(v=>v==2).length,ds=Object.keys(LOG).filter(k=>Object.keys(LOG[k].meal).length||LOG[k].shan.length).length;
+ $('life').innerHTML='十六關：已具足 '+g+'，正在準備 '+pr+'，其餘交給因緣。<br>已記錄 '+ds+' 天。'}
+sumup();window.READY=true;
+const vw=$('vow');vw.value=S('vow','');vw.oninput=()=>P('vow',vw.value);
+// 備份與還原（合併進度）
+function bk(){const o={app:'jingxing-pin',ver:'V-0.004',gate:st,log:LOG,vow:vw.value};const u=URL.createObjectURL(new Blob([JSON.stringify(o)],{type:'application/json'}));const a=document.createElement('a');a.href=u;a.download='來生出家簿-備份-'+today()+'.json';document.body.appendChild(a);a.click();a.remove();$('bkmsg').textContent='已備份。'}
+$('rf').onchange=e=>{const f=e.target.files[0];if(!f)return;f.text().then(t=>{try{const o=JSON.parse(t);if(o.app!=='jingxing-pin')throw 0;
+ Object.keys(o.gate||{}).forEach(k=>{st[k]=Math.max(st[k]||0,o.gate[k])});P('gate',st);drawField();
+ Object.keys(o.log||{}).forEach(k=>{const a=LOG[k]=LOG[k]||{meal:{},shan:[]},b=o.log[k];Object.assign(a.meal,b.meal||{});a.shan=[...new Set([...(a.shan||[]),...(b.shan||[])])]});P('log',LOG);
+ if(o.vow&&!vw.value){vw.value=o.vow;P('vow',o.vow)}sumup();$('bkmsg').textContent='已合併還原，原有進度沒有被覆蓋。'}catch(x){$('bkmsg').textContent='這個檔案不是本工具的備份。'}})};
 // 禪堂
 let tm;mk('sit',['5分','10分','15分','25分'],(b,t)=>{clearInterval(tm);let s=parseInt(t)*60;tm=setInterval(()=>{s--;$('clock').textContent='剩 '+Math.floor(s/60)+':'+String(s%60).padStart(2,'0');if(s<=0){clearInterval(tm);$('clock').textContent='時間到'}},1000)});
 
