@@ -114,7 +114,7 @@ footer{text-align:center;color:var(--faint);font-size:.68em;letter-spacing:.15em
 
 <section id="t4">
 <div class="card"><h3>我的一日</h3><div id="today" class="note"></div></div>
-<div class="card"><h3>我的一生</h3><div id="life" class="note"></div></div>
+<div class="card"><h3>我的一生</h3><img id="selfimg" alt="來生的我" style="display:block;width:100%;max-width:340px;margin:6px auto 12px;-webkit-mask-image:linear-gradient(transparent,#000 12%,#000 85%,transparent);mask-image:linear-gradient(transparent,#000 12%,#000 85%,transparent)"><div id="life" class="note" style="text-align:center"></div></div>
 <div class="card"><h3>寫給來生的我</h3>
 <p class="note">用自己的話寫一段發願。只存在這台裝置。</p>
 <textarea id="vow" rows="5" style="width:100%;border:0;border-bottom:1px solid rgba(36,34,30,.25);background:rgba(255,255,255,.35);font:inherit;font-size:.9em;padding:10px;color:var(--ink);resize:vertical"></textarea></div>
@@ -138,7 +138,7 @@ footer{text-align:center;color:var(--faint);font-size:.68em;letter-spacing:.15em
 </section>
 
 </main>
-<footer>V-0.006（2026-11-18）・AI 協助撰寫，請自行判斷；不主張著作權，歡迎廣傳。</footer>
+<footer>V-0.007（2026-11-18）・AI 協助撰寫，請自行判斷；不主張著作權，歡迎廣傳。</footer>
 <nav id="nav"></nav>
 
 <script>
@@ -167,7 +167,7 @@ const sv=()=>{P('log',LOG);sumup()};
 function sumup(){const d=day(),m=Object.keys(d.meal).length;
  $('today').innerHTML='今天（'+today()+'）：用餐自省 '+m+' 餐，守住十善 '+d.shan.length+' 條。<br>不計分，只是記下來。';
  const g=Object.values(st).filter(v=>v==1).length,pr=Object.values(st).filter(v=>v==2).length,ds=Object.keys(LOG).filter(k=>Object.keys(LOG[k].meal).length||LOG[k].shan.length).length;
- $('life').innerHTML='十六關：已具足 '+g+'，正在準備 '+pr+'，其餘交給因緣。<br>已記錄 '+ds+' 天。'}
+ $('selfimg').src='assets/self-'+(g<6?'A':g<12?'B':'C')+'.jpg';$('life').innerHTML='來生的我，隨十六關慢慢清楚。<br>十六關：已具足 '+g+'，正在準備 '+pr+'，其餘交給因緣。<br>已記錄 '+ds+' 天。'}
 sumup();window.READY=true;
 const vw=$('vow');vw.value=S('vow','');vw.oninput=()=>P('vow',vw.value);
 // 備份與還原（合併進度）
