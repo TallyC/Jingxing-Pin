@@ -307,7 +307,7 @@ h1,h2,h3,summary,.note,.fq,.vs,.q,p{text-wrap:pretty}
 </section>
 
 </main>
-<footer>V-0.020（2026-11-19）・AI 協助撰寫，請自行判斷；不主張著作權，歡迎廣傳。</footer>
+<footer>V-0.021（2026-11-19）・AI 協助撰寫，請自行判斷；不主張著作權，歡迎廣傳。</footer>
 <div id="fab" hidden><button id="fsec" hidden>本篇開頭</button><button id="ftop" aria-label="回頁首">↑</button></div>
 <nav id="nav"></nav>
 
@@ -368,7 +368,7 @@ function drawHist(){const ks=Object.keys(LOG).filter(k=>{const d=fix(LOG[k]);ret
 sumup();window.READY=true;
 const vw=$('vow');vw.value=S('vow','');vw.oninput=()=>P('vow',vw.value);
 // 備份與還原（合併進度）
-function bk(){const o={app:'jingxing-pin',ver:'V-0.020',gate:st,log:LOG,vow:vw.value,read:RD,gatha:S('gatha',[])};const u=URL.createObjectURL(new Blob([JSON.stringify(o)],{type:'application/json'}));const a=document.createElement('a');a.href=u;a.download='來生出家簿-備份-'+today()+'.json';document.body.appendChild(a);a.click();a.remove();$('bkmsg').textContent='已備份，請到下載資料夾確認。若沒有反應，請改用 Chrome 或 Safari 開啟本網址。'}
+function bk(){const o={app:'jingxing-pin',ver:'V-0.021',gate:st,log:LOG,vow:vw.value,read:RD,gatha:S('gatha',[])};const u=URL.createObjectURL(new Blob([JSON.stringify(o)],{type:'application/json'}));const a=document.createElement('a');a.href=u;a.download='來生出家簿-備份-'+today()+'.json';document.body.appendChild(a);a.click();a.remove();$('bkmsg').textContent='已備份，請到下載資料夾確認。若沒有反應，請改用 Chrome 或 Safari 開啟本網址。'}
 $('rf').onchange=e=>{const f=e.target.files[0];if(!f)return;f.text().then(t=>{try{const o=JSON.parse(t);if(o.app!=='jingxing-pin')throw 0;
  const rk=v=>v==1?3:v==2?2:0;Object.keys(o.gate||{}).forEach(k=>{if(rk(o.gate[k])>rk(st[k]||0))st[k]=o.gate[k]});P('gate',st);drawField();
  Object.keys(o.log||{}).forEach(k=>{const a=fix(LOG[k]=LOG[k]||{}),b=fix(o.log[k]);Object.keys(b.meal).forEach(m=>{if(!a.meal[m])a.meal[m]=b.meal[m]});a.shan=[...new Set([...a.shan,...b.shan])];a.bg=[...new Set([...a.bg,...b.bg])];a.dy=[...new Set([...a.dy,...b.dy])];a.sit=Math.max(a.sit,b.sit);a.ok=Math.max(a.ok,b.ok);a.mo=Math.max(a.mo,b.mo);a.hx=Math.max(a.hx,b.hx);a.jing=[...new Set([...a.jing,...b.jing])];if(!a.intent)a.intent=b.intent;if(!a.rvw)a.rvw=b.rvw});P('log',LOG);
